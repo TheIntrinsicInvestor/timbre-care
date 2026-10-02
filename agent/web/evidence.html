@@ -1,0 +1,342 @@
+<title>Timbre Care: Watch the agent work</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    color-scheme: light;
+    --plane: #f9f9f7;
+    --surface: #fcfcfb;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --ink-muted: #898781;
+    --border: rgba(11, 11, 11, 0.10);
+    --series: #2a78d6;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --plane: #0d0d0d;
+      --surface: #1a1a19;
+      --ink: #ffffff;
+      --ink-2: #c3c2b7;
+      --ink-muted: #898781;
+      --border: rgba(255, 255, 255, 0.10);
+      --series: #3987e5;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --plane: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --ink-muted: #898781;
+    --border: rgba(255, 255, 255, 0.10);
+    --series: #3987e5;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --plane: #f9f9f7;
+    --surface: #fcfcfb;
+    --ink: #0b0b0b;
+    --ink-2: #52514e;
+    --border: rgba(11, 11, 11, 0.10);
+    --series: #2a78d6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--plane);
+    color: var(--ink);
+    font: 400 15px/1.55 var(--sans);
+  }
+
+  .ev-wrap {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  p { margin: 0; }
+
+  .ev-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .ev-head h1 {
+    margin: 0.35rem 0 0;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .ev-lede {
+    margin-top: 0.6rem;
+    max-width: 46rem;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .ev-note {
+    margin-top: 0.7rem;
+    max-width: 46rem;
+    font-size: 0.87rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
+  .ev-back {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.87rem;
+    color: var(--series);
+  }
+
+  .ev-runhead {
+    margin-top: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ev-runhead h2 {
+    margin: 0.25rem 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .ev-runhead p {
+    margin-top: 0.3rem;
+    max-width: 46rem;
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+  }
+
+  .ev-clip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .ev-clip-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .ev-num {
+    font: 600 0.72rem/1 var(--mono);
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .ev-clip h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .ev-dur {
+    font: 400 0.78rem/1 var(--mono);
+    color: var(--ink-muted);
+    margin-left: auto;
+  }
+
+  .ev-cap {
+    max-width: 46rem;
+    font-size: 0.92rem;
+    color: var(--ink-2);
+  }
+
+  .ev-cap strong { color: var(--ink); font-weight: 600; }
+  .ev-cap code {
+    font: 400 0.85em/1 var(--mono);
+    background: var(--plane);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1em 0.3em;
+  }
+
+  .ev-spliced {
+    align-self: flex-start;
+    font: 600 0.68rem/1 var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    padding: 0.3rem 0.45rem;
+  }
+
+  .ev-clip video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--plane);
+  }
+
+  .ev-provenance {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+
+  .ev-provenance h2 { margin: 0 0 0.8rem; font-size: 1.05rem; font-weight: 600; }
+  .ev-provenance ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .ev-provenance li { color: var(--ink-2); font-size: 0.9rem; }
+  .ev-provenance li strong { color: var(--ink); }
+
+  footer.ev-foot {
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  @media (max-width: 34rem) {
+    .ev-dur { margin-left: 0; width: 100%; }
+  }
+</style>
+
+<div class="ev-wrap">
+
+  <div class="ev-head">
+    <p class="ev-eyebrow">Age Well Social Good Challenge &middot; Tencent Cloud &middot; Team Karpathians</p>
+    <h1>Watch the agent work</h1>
+    <p class="ev-lede">Eight cuts from two unedited runs of WorkBuddy driving Timbre Care against the custom <code>care-companion</code> MCP server. One is a check-in call, the other is the appointment beside her at the doctor. Both start from a single sentence with no procedure attached. The prompts below are quoted exactly as they were typed: cadence is the elder's own choice of daily, every other day, or three times a week, and Lim Mei Hua is on the daily setting, which is what those prompts name.</p>
+    <p class="ev-note">The product's rules live in the tool layer, not in a prompt. So you can watch the agent try something and be refused, rather than take our word that it would be. Clips 3, 5, 6 and 7 are the interesting ones for that: a refusal is harder to fake than a success, and in clip 7 the thing refused is the agent's own writing.</p>
+    <a class="ev-back" href="/">&larr; Back to the caregiver console</a>
+  </div>
+
+  <div class="ev-runhead">
+    <p class="ev-eyebrow">Run one</p>
+    <h2>The check-in call</h2>
+    <p>Prompt, in full: "Run today's Care Companion daily check-in for the elder lim-mei-hua. The care-companion MCP server has the tools for this. Work out the plan yourself and carry it out, then tell me what you found and who you notified."</p>
+  </div>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">01</span>
+      <h3>It finds the skill from the request</h3>
+      <span class="ev-dur">0:28</span>
+    </div>
+    <p class="ev-cap">Nothing in the prompt names a skill or a tool. WorkBuddy reads the sentence, loads <code>care-companion-check-in</code> on its own, and then goes looking for the tools that skill needs. The capability is discovered from the request, not picked off a menu beforehand.</p>
+    <video src="01-skill-triggers-by-phrase.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">02</span>
+      <h3>It plans the call around what it read</h3>
+      <span class="ev-dur">0:42</span>
+    </div>
+    <p class="ev-cap">It pulls her context and writes its own plan from it: <strong>"her linguistic markers are ineligible but acoustic and behavioural data are mature, and she's on a new sedating medication. I'll now prepare a brief call script checking on her morning drowsiness and any giddiness when standing."</strong> Nothing asked it about the medication. It noticed, and let that decide what the call would ask.</p>
+    <video src="02-plans-and-names-the-confounder.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">03</span>
+      <h3>It declines to raise the drift flag</h3>
+      <span class="ev-dur">0:44</span>
+    </div>
+    <p class="ev-cap">It checks confounds before considering any flag, then stops itself: <strong>"The markers are blocked from drift flagging due to amitriptyline starting 6 days ago and being reduced 2 days ago, so I'm moving to content flags for what she mentioned."</strong> A sedating medication started six days ago is a perfectly good explanation for a change in how she speaks. Calling that drift would be a false alarm, so it does not.</p>
+    <video src="03-declines-the-drift-flag.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">04</span>
+      <h3>Who was told, and who was not</h3>
+      <span class="ev-dur">0:27</span>
+    </div>
+    <p class="ev-cap">Four content flags, all at <strong>routine</strong> urgency, carrying verbatim quotes with no severity attached, because the product never triages a complaint. Then the part most systems bury: <strong>"Wei Jie (son, Perth) was not sent these — he doesn't hold that scope."</strong> It volunteers that this is reported openly rather than hidden, and says exactly what would have to change for him to be included. (The tool surface has since been renamed: it now returns <code>routed_to</code>, because nothing in this build sends anything.)</p>
+    <video src="04-who-was-told-and-who-was-not.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <div class="ev-runhead">
+    <p class="ev-eyebrow">Run two</p>
+    <h2>The appointment, beside her at the doctor</h2>
+    <p>Prompt, in full: "Lim Mei Hua sees her doctor in a few minutes and I am sitting with her. Write the consultation up as it happens so she can read it back afterwards in her own language, and make sure whatever changes come out of it reach the people she has authorised and get picked up on her daily check-in calls."</p>
+  </div>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">05</span>
+      <h3>It will not start recording without her consent</h3>
+      <span class="ev-dur">0:52</span>
+    </div>
+    <p class="ev-cap">It gets as far as the recording and stops: <strong>"Consent for recording belongs to Lim Mei Hua herself — not to you or anyone else in the room. Who tapped the consent button on the screen?"</strong> It also confirms the audible announcement played so the doctor knows capture is on, and asks which written language she actually reads, noting that if she speaks Hokkien or Teochew those are not written languages. Only then does it begin.</p>
+    <video src="05-consent-gate.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">06</span>
+      <h3>It holds two medication changes for a named human</h3>
+      <span class="ev-dur">0:34</span>
+    </div>
+    <span class="ev-spliced">Spliced &mdash; see note below</span>
+    <p class="ev-cap">It reads two changes off the doctor's notes and refuses to write either on its own authority, asking who is confirming them. When the name does not arrive, it does not quietly proceed: <strong>"Per the safety rules, unconfirmed-by-name changes stay unwritten, and I'll say so plainly in the family digest."</strong> It finishes everything else, and writes the changes only once a name is given, recording amitriptyline as sedating so the drift model will not mistake it for decline.</p>
+    <video src="06-named-confirmation-gate.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">07</span>
+      <h3>The tool layer refuses the agent's own writing</h3>
+      <span class="ev-dur">0:38</span>
+    </div>
+    <p class="ev-cap"><strong>"The digest was refused because I left the jargon 'HbA1c' in it — fixing that and resending."</strong> The rule that jargon must be explained is enforced in the server, so it catches the agent's own draft mid-run and hands it back. This is the shortest answer to whether the rules are real: the agent wrote something, the product rejected it, and the correction is on screen.</p>
+    <video src="07-the-jargon-refusal.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-clip">
+    <div class="ev-clip-head">
+      <span class="ev-num">08</span>
+      <h3>The appointment feeds the check-in</h3>
+      <span class="ev-dur">0:54</span>
+    </div>
+    <p class="ev-cap">The whole idea in one stretch. It sends her a link to her own plain-language summary, delivers the digest to the three people she authorised, and queues <strong>four watch-fors for tomorrow's call</strong>, written from what the doctor actually said: whether she is still leaving half her meals, whether the drowsiness settles on the lower dose, whether the knee is worsening, whether she feels giddy standing up. <strong>"Tomorrow's call will ask exactly these."</strong> The consultation decides what the call asks about, and nothing in the prompt spelled that out.</p>
+    <video src="08-appointment-feeds-the-checkin.mp4#t=0.1" controls preload="metadata" playsinline muted></video>
+  </section>
+
+  <section class="ev-provenance">
+    <h2>About these recordings</h2>
+    <ul>
+      <li><strong>Seven of the eight are one unbroken span each.</strong> No speed-up, no re-ordering, nothing removed.</li>
+      <li><strong>Clip 6 is spliced, and here is why.</strong> During that run the confirmer's name repeatedly failed to reach the agent through the interface, leaving roughly three minutes of dead waiting. The clip joins three moments from that stretch: the question, the refusal to proceed without an answer, and the write once the name finally arrived. The dead time is what was removed; nothing the agent did was.</li>
+      <li><strong>The account email is patched out</strong> of the sidebar in every clip. That is the only alteration to the picture.</li>
+      <li><strong>Silent.</strong> These are screen captures with no narration, so the audio track was dropped rather than left empty.</li>
+      <li><strong>The agent is WorkBuddy</strong>, running its own model, driving a local MCP server we wrote. The tool names on screen are the real tool surface, not a mock.</li>
+      <li><strong>The elder is invented.</strong> Lim Mei Hua, her family, her helper and her medication list are fictional. No real person's health data appears in any clip.</li>
+    </ul>
+  </section>
+
+  <footer class="ev-foot">Timbre Care &middot; Team Karpathians &middot; Brian Liew and Joseph Chew</footer>
+</div>

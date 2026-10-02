@@ -1,0 +1,160 @@
+{
+  "consult_id": "consult-2026-08-05",
+  "elder_id": "lim-mei-hua",
+  "clinic": "Bedok Polyclinic",
+  "clinician": "Dr Tan, family physician",
+  "recorded_on": "2026-08-05",
+  "note": "Replayed transcript. Live ASR is out of scope for the demo; the Live Simplifier is exercised against a fixed consult so the caption path can be judged without a microphone in the room.",
+  "segments": [
+    {
+      "id": "s01",
+      "t_start": 0.0,
+      "t_end": 5.8,
+      "speaker": "clinician",
+      "text": "Madam Lim, come in, sit down. How have you been since July?",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s02",
+      "t_start": 6.2,
+      "t_end": 11.0,
+      "speaker": "elder",
+      "text": "Doctor ah, so-so lah. The knee still pain when I go down the stairs.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s03",
+      "t_start": 11.4,
+      "t_end": 21.6,
+      "speaker": "clinician",
+      "text": "Let me look at your blood test first. Your HbA1c has come up to 8.2, which is higher than last time.",
+      "jargon": ["HbA1c"],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s04",
+      "t_start": 22.0,
+      "t_end": 31.5,
+      "speaker": "clinician",
+      "text": "So I am going to titrate the metformin up to 850 milligrams twice a day.",
+      "jargon": ["titrate"],
+      "meds_mentioned": [
+        {"name": "metformin", "action": "increase", "dose": "850 mg twice daily"}
+      ]
+    },
+    {
+      "id": "s05",
+      "t_start": 32.0,
+      "t_end": 36.4,
+      "speaker": "elder",
+      "text": "Aiyah, more medicine again.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s06",
+      "t_start": 36.8,
+      "t_end": 49.2,
+      "speaker": "clinician",
+      "text": "The X-ray of your knee shows osteoarthritis in the medial compartment. It is wear and tear on the inner side of the joint.",
+      "jargon": ["osteoarthritis", "medial compartment"],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s07",
+      "t_start": 49.6,
+      "t_end": 60.0,
+      "speaker": "clinician",
+      "text": "I do not want to give you an NSAID because of your kidneys, so I will refer you to physiotherapy instead.",
+      "jargon": ["NSAID"],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s08",
+      "t_start": 60.4,
+      "t_end": 66.8,
+      "speaker": "elder",
+      "text": "The new tablet, the one for sleeping, make me a bit blur in the morning.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s09",
+      "t_start": 67.2,
+      "t_end": 80.5,
+      "speaker": "clinician",
+      "text": "That is the amitriptyline. I started you on 25 milligrams. Let us bring it down to 10 milligrams and see if the drowsiness settles.",
+      "jargon": [],
+      "meds_mentioned": [
+        {"name": "amitriptyline", "action": "reduce", "dose": "10 mg at night"}
+      ]
+    },
+    {
+      "id": "s10",
+      "t_start": 81.0,
+      "t_end": 89.4,
+      "speaker": "clinician",
+      "text": "You are still taking the amlodipine for your blood pressure, correct?",
+      "jargon": [],
+      "meds_mentioned": [
+        {"name": "amlodipine", "action": "confirm", "dose": ""}
+      ]
+    },
+    {
+      "id": "s11",
+      "t_start": 89.8,
+      "t_end": 94.2,
+      "speaker": "elder",
+      "text": "The white one, morning time. Yes.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s12",
+      "t_start": 94.6,
+      "t_end": 104.8,
+      "speaker": "clinician",
+      "text": "Your weight is down 2 kilos since July. Are you finishing your meals?",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s13",
+      "t_start": 105.2,
+      "t_end": 112.0,
+      "speaker": "elder",
+      "text": "Sometimes half only. Not so hungry.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s14",
+      "t_start": 112.4,
+      "t_end": 124.6,
+      "speaker": "clinician",
+      "text": "Then I want someone keeping an eye on that. If you are still leaving half your meals in two weeks, we need to look at it properly.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s15",
+      "t_start": 125.0,
+      "t_end": 136.2,
+      "speaker": "clinician",
+      "text": "Come back in 6 weeks. If the knee gets worse, or you feel giddy when you stand up, come earlier.",
+      "jargon": [],
+      "meds_mentioned": []
+    },
+    {
+      "id": "s16",
+      "t_start": 136.6,
+      "t_end": 141.0,
+      "speaker": "elder",
+      "text": "Okay doctor, thank you ah.",
+      "jargon": [],
+      "meds_mentioned": []
+    }
+  ]
+}

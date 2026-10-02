@@ -1,0 +1,1265 @@
+@import "tailwindcss";
+
+:root {
+  --surface: #fcfcfb;
+  --panel: #f3f1ec;
+  --ink: #0b0b0b;
+  /* The spec fixed this at #898781, which is 3.50:1 on --surface and fails
+     WCAG AA. The field label is the most-repeated element in the design, so
+     the token is the defect rather than any one use of it. #6f6d68 is 5.03:1,
+     same warm grey family, and the same spec demands AA throughout. */
+  --muted: #6f6d68;
+  --rule: #e4e1d9;
+  --accent: #cf3016;
+  /* Body text at AAA against --surface. Do not lighten this for style. */
+  --body: #3a3936;
+  /* There are deliberately NO inverted text tokens, and no dark section
+     anywhere on the site. A --body-inv/--muted-inv/--rule-inv trio existed for
+     about half a day (the "cinematic + instrument" pass) and was removed on
+     Brian's call: the whole page is bright. Do not reintroduce a dark ground
+     for a section, an act or a component; if a region needs to separate from
+     the page, use --panel, a hairline, or space. */
+  /* Ground only, never an accent. --wash is the warm end of the page
+     gradient; --scrim is the veil under display type set over footage. */
+  --wash: #f6f3ec;
+  --scrim: rgba(11, 11, 11, 0.34);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  /* background-color stays opaque and separate from the gradient.
+     tests/copy-audit.mjs resolves an element's ground by walking ancestors for
+     an opaque backgroundColor and falling back to body's; set as the
+     `background` shorthand, body's backgroundColor resolves to rgba(0,0,0,0),
+     every paragraph on the site is then scored against black, and all four
+     routes fail AAA for a reason that looks nothing like its cause. */
+  background-color: var(--surface);
+  background-image: linear-gradient(180deg, var(--surface) 0%, var(--wash) 62%, var(--surface) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+/* Fine grain, inline so there is no network request and no asset to cache.
+   A pseudo-element, not a child div: copy-audit's groundOf walks ancestors,
+   and an overlay that is not an ancestor cannot disturb a contrast reading. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The page's most recognisable signature: a mono field label above its value. */
+.cc-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+@media (max-width: 767px) {
+  .cc-wrap { padding: 0 20px; }
+}
+
+/* nav */
+/* Pinned on every route. The ground must be OPAQUE and the z-index above the
+   pinned sections: the nav sits over the hero footage, over two scrubbed pins
+   and over a cross-origin iframe, any of which would otherwise show through it
+   or scroll over it. body::after, the grain overlay, is z-index 1, so the nav
+   has to clear that too. */
+.cc-nav {
+  position: sticky; top: 0; z-index: 50;
+  background-color: var(--surface);
+  height: 66px; display: flex; align-items: center; gap: 38px;
+  padding: 0 56px; border-bottom: 1px solid var(--rule);
+}
+/* Scoped as .cc-nav a.cc-mark, and that is load-bearing. An unscoped .cc-mark
+   is 0,1,0 and loses to .cc-nav a at 0,1,1, so every one of these declarations
+   silently lost: the wordmark rendered at 14.5px, weight 500 and opacity 0.6,
+   which is #0b0b0b washed to mid-grey, rather than the 17px/600 it declared.
+   The same trap is recorded for the old nav CTA. Measured, not assumed. */
+.cc-nav a.cc-mark { font-weight: 700; font-size: 20px; letter-spacing: -0.02em;
+                    margin-right: auto; color: var(--ink); opacity: 1;
+                    text-decoration: none;
+                    display: flex; align-items: center; gap: 10px; }
+/* Accent home 5, the brand mark. Scoped to the nav and the favicon and nowhere
+   else: see the accent rule in DESIGN.md. The wordmark beside it stays --ink,
+   so the vermilion is the drawing only. */
+.cc-logo { color: var(--accent); flex: none; display: block; }
+.cc-nav-links { display: flex; gap: 38px; }
+.cc-nav a { color: var(--ink); text-decoration: none; font-size: 14.5px;
+            font-weight: 500; opacity: 0.6; }
+.cc-nav a.on { opacity: 1; }
+/* The nav carried an accent "Open the record" CTA to the live console until
+   2026-08-09. The console is embedded on /record at every width now, so a
+   second door to it was noise. There is no .cc-cta rule any more; .cc-cta-block
+   below is a different thing and is still used by / twice. */
+@media (max-width: 900px) {
+  .cc-nav { padding: 0 20px; gap: 18px; }
+  .cc-nav-links { gap: 18px; }
+  .cc-nav a { font-size: 13px; }
+}
+/* Below this the four labels plus the wordmark cannot hold one line: they wrap
+   mid-word and "Timbre Care" itself breaks across two rows. Stack deliberately
+   instead, wordmark on its own row, rather than letting it collapse. */
+@media (max-width: 620px) {
+  .cc-nav { height: auto; flex-wrap: wrap; align-items: center;
+            padding: 13px 20px 12px; gap: 9px 12px; }
+  .cc-nav a.cc-mark { margin-right: auto; white-space: nowrap; gap: 8px;
+                      font-size: 18px; }
+  .cc-logo { width: 26px; height: 26px; }
+  .cc-nav-links { order: 3; flex-basis: 100%; flex-wrap: wrap; gap: 8px 16px; }
+}
+
+/* footer */
+.cc-footer { border-top: 1px solid var(--rule); margin-top: 72px; padding: 40px 0 52px; }
+.cc-footer p { color: var(--body); font-size: 14.5px; max-width: 62ch; margin: 0; }
+/* The footer's own route list, and the two hairlines that boxed it, were
+   removed on 2026-08-10 on Brian's call. The sticky nav carries the same four
+   routes on every route, so the row repeated the site's only navigation
+   directly beneath itself and the rules made a band of it. Nothing else used
+   .cc-footer-links; tests/nav.mjs clicks are scoped to nav.cc-nav. */
+
+/* The submission's identity: what this is, who built it, and what for. */
+.cc-foot-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+               gap: 40px; padding-bottom: 30px; }
+.cc-foot-mark { display: flex; align-items: center; gap: 9px; text-decoration: none;
+                color: var(--ink); font-weight: 600; font-size: 16px;
+                letter-spacing: -0.012em; }
+.cc-foot-line { margin-top: 12px !important; color: var(--body); font-size: 14.5px;
+                line-height: 1.5; max-width: 34ch; }
+.cc-foot-meta { margin: 0; display: grid; grid-template-columns: max-content 1fr;
+                gap: 10px 26px; align-items: baseline; }
+.cc-foot-meta dt { white-space: nowrap; }
+.cc-foot-meta dd { margin: 0; color: var(--body); font-size: 14.5px; line-height: 1.5; }
+.cc-foot-meta dd a { color: var(--body); border-bottom: 1px solid var(--rule); }
+/* --body, not --muted: copy-audit samples every p for AAA and --muted is
+   5.03:1. Fine print here is a size decision, never a contrast one. */
+.cc-foot-legal { margin-top: 20px !important; font-size: 13.5px !important;
+                 line-height: 1.5; color: var(--body); max-width: 76ch !important;
+                 font-style: italic; }
+
+@media (max-width: 760px) {
+  .cc-foot-top { grid-template-columns: 1fr; gap: 26px; }
+  .cc-foot-meta { grid-template-columns: 1fr; gap: 4px 0; }
+  .cc-foot-meta dt { margin-top: 12px; }
+}
+
+/* left-aligned page headers, used by /agent and /record */
+.cc-hero-left { padding: 46px 0 0; }
+.cc-hero-left h1 { font-size: 42px; line-height: 1.07; letter-spacing: -0.03em;
+                   font-weight: 600; max-width: 20ch; margin: 0; }
+.cc-lede-left { margin: 14px 0 0; font-size: 16.5px; line-height: 1.5;
+                color: var(--body); max-width: 62ch; }
+h2 { font-size: 27px; line-height: 1.15; letter-spacing: -0.02em; font-weight: 600;
+     margin: 56px 0 12px; }
+
+/* the gloss beside her screen */
+.cc-glossed { display: flex; align-items: flex-start; gap: 26px; }
+.cc-gloss { margin: 34px 0 0; display: grid; grid-template-columns: auto auto;
+            gap: 6px 14px; align-content: start; }
+.cc-gloss dt { font-size: 14px; }
+/* --body, not --muted: this is the English for what is on her screen, so it is
+   read rather than glanced at, and body text is held to AAA. The hierarchy
+   against dt survives on colour weight alone. */
+.cc-gloss dd { margin: 0; font-size: 14px; color: var(--body); }
+
+/* walkthrough */
+/* Capped and centred: at 1fr 1fr across a full 1440 the copy hugs the left
+   edge and the phones hug the right, with the argument split by a void.
+   min-height is 100dvh minus the sticky nav, same reasoning as .cc-hero--show
+   above: the pin starts at "top 66px" (Walkthrough.tsx), so a bare 100dvh box
+   ends 66px past the fold and the bottom of the phone was cut off there,
+   identically at every beat. */
+.cc-wt { min-height: calc(100dvh - 66px); display: grid; grid-template-columns: 1fr 1fr;
+         align-items: center; gap: 56px; padding: 12px 56px 60px;
+         max-width: 1240px; margin: 0 auto; }
+.cc-wt-copy h3 { font-size: 31px; line-height: 1.12; letter-spacing: -0.025em;
+                 font-weight: 600; margin: 10px 0 10px; max-width: 16ch; }
+.cc-wt-copy p { font-size: 16.5px; line-height: 1.5; color: var(--body); max-width: 46ch; }
+.cc-wt-stage { display: flex; gap: 34px; justify-content: center; }
+.cc-stack { display: grid; gap: 40px; padding: 40px 56px; }
+.cc-stack-beat h3 { font-size: 26px; font-weight: 600; margin: 0 0 8px; }
+.cc-stack-beat p { font-size: 16.5px; line-height: 1.5; color: var(--body); max-width: 56ch; }
+
+/* the one interactive control, and the recording state */
+.cc-consent { margin: auto 0; width: 100%; background: var(--accent); color: #fff;
+              border: 0; border-radius: 6px; padding: 18px 16px; font-size: 18px;
+              font-weight: 600; font-family: inherit; cursor: pointer; }
+.cc-consent[aria-pressed="true"] { background: var(--ink); }
+.cc-consent:active { transform: scale(0.98); }
+.cc-rec { margin: auto 0; display: grid; gap: 14px; justify-items: center;
+          font-size: 20px; font-weight: 600; }
+.cc-rec-dot { width: 13px; height: 13px; border-radius: 50%; background: var(--accent);
+              display: inline-block; }
+.cc-rec-stop { background: none; border: 1.5px solid var(--ink); border-radius: 6px;
+               padding: 12px 26px; font-size: 17px; font-family: inherit; cursor: pointer; }
+
+/* beat screens */
+.cc-sc-idle { margin-top: auto; margin-bottom: auto; color: var(--muted);
+              font-size: 15px; text-align: center; }
+.cc-sc-line { font-size: 19px; font-weight: 600; line-height: 1.35; margin-top: 10px; }
+.cc-wf { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
+.cc-wf li { font-size: 13px; line-height: 1.38; color: var(--body);
+            padding-left: 11px; border-left: 2.5px solid var(--rule); }
+/* Accent only where the watch-for actually produced a flag on record, which
+   keeps it inside the contract's "flags and refusals" rule. The walkthrough
+   tweens this colour onto li[data-done="1"] so the three light in turn, so
+   there is no is-done class on /demo any more. */
+.cc-wf-none { display: block; margin-top: 2px; color: var(--muted);
+              font-size: 11px; font-style: italic; }
+.cc-wf-extra { margin-top: 13px; font-size: 12.5px; color: var(--body); }
+
+/* dialect tiers */
+/* /demo's language claim. Three tier cards stood here with word-error rates on
+   them until 2026-08-09; .cc-tiers and .cc-tier went with them. */
+.cc-lang { padding: 8px 0 20px; }
+.cc-lang h2 { margin-top: 6px; }
+.cc-lang .cc-lede-left { max-width: 68ch; }
+
+@media (max-width: 900px) {
+  /* min-height is dropped, not just the columns. Pinned at 100dvh with the two
+     phones stacked, the stage measured 1010px inside an 844px viewport, so on
+     the three beats that carry the linkage her daughter's phone sat below the
+     fold of a section that cannot be scrolled. The linkage is the wedge; it
+     cannot be the part a phone cannot reach. Two phones side by side at reduced
+     width keeps both on screen and keeps them a pair. */
+  .cc-wt { grid-template-columns: 1fr; gap: 22px; padding: 32px 20px;
+           min-height: 0; }
+  /* The device overrides for this breakpoint live at the END of this file, not
+     here. A media query adds no specificity, so a `.cc-dev` rule written after
+     this block wins at every width and the two phones overflow a 390px screen
+     at their full 300px. */
+  .cc-glossed { flex-direction: column; align-items: center; }
+  .cc-gloss { margin-top: 18px; }
+  .cc-hero-left h1 { font-size: 30px; }
+}
+
+/* phone frames */
+.cc-col { display: flex; flex-direction: column; align-items: center; }
+.cc-cap { margin-bottom: 13px; letter-spacing: 0.14em; }
+/* The .cc-phone / .cc-screen block that lived here belonged to PhoneFrame,
+   which was deleted on 2026-08-09 when the homepage rebuild moved the worked
+   example onto DeviceFrame. Nothing emits those classes any more. The
+   min-height lesson it carried survives on .cc-dev, and the elder/carer type
+   sizes survive on .cc-app--elder / .cc-app--carer. */
+
+/* home hero and the flags on the caregiver's screen */
+/* Left-aligned since the rebuild. The old centred hero held a headline and a
+   lede and nothing else, because the two phones sat directly beneath it; this
+   one has to carry a kicker, a paragraph and two actions, and centred type
+   with a ragged left edge stops being readable at that length. */
+.cc-hero { padding: 84px 0 66px; position: relative; z-index: 2; }
+.cc-hero-k { margin: 0 0 18px; }
+.cc-hero h1, .cc-hero-h1 {
+  font-size: clamp(38px, 5.2vw, 66px); line-height: 1.02;
+  letter-spacing: -0.035em; font-weight: 600; max-width: 17ch; margin: 0;
+}
+.cc-lede { margin: 22px 0 0; font-size: 18px; line-height: 1.5;
+           color: var(--body); max-width: 54ch; }
+.cc-hero-acts { display: flex; align-items: center; gap: 26px; margin: 30px 0 0;
+                flex-wrap: wrap; }
+.cc-hero-acts .cc-cta-block { margin-top: 0; }
+.cc-quiet { color: var(--ink); font-size: 15px; text-decoration: none;
+            border-bottom: 1px solid var(--rule); }
+.cc-stage { margin-top: 34px; display: flex; justify-content: center;
+            align-items: flex-start; gap: 60px; padding-bottom: 72px; }
+.cc-sc-h { font-size: 26px; line-height: 1.16; font-weight: 600; margin: 7px 0 3px; }
+.cc-sc-h2 { font-size: 19px; line-height: 1.2; font-weight: 600; margin: 7px 0 13px; }
+.cc-sc-date { font-size: 13.5px; color: var(--muted); margin-bottom: 16px; }
+.cc-sc-dose { font-size: 22px; font-weight: 600; line-height: 1.28; }
+.cc-sc-dose span { display: block; font-size: 14px; font-weight: 400;
+                   color: var(--body); margin-top: 4px; }
+.cc-flag { border-left: 2.5px solid var(--accent); padding: 1px 0 1px 11px;
+           margin-bottom: 13px; }
+.cc-flag-t { font-size: 15px; font-weight: 600; line-height: 1.28; }
+.cc-flag-q { margin-top: 3px; font-size: 13px; color: var(--body); line-height: 1.38; }
+/* The mention count is what PRD 8.3 offers instead of grading a complaint, so
+   it must not be the smallest text on the page. */
+.cc-flag-m { margin-top: 4px; font-size: 10.5px; }
+.cc-routed { margin-top: auto; border-top: 1px solid var(--rule); padding-top: 11px; }
+.cc-who { font-size: 13.5px; line-height: 1.45; }
+.cc-no { color: var(--muted); }
+@media (max-width: 900px) {
+  .cc-hero { padding: 32px 20px 0; }
+  .cc-hero h1 { font-size: 32px; }
+  .cc-stage { flex-direction: column; align-items: center; gap: 36px; }
+}
+
+/* Machine surfaces invert inside the light page. This is a component
+   treatment, not a second theme: the page stays light. */
+/* Light, like everything else. This was inverted from the first build and was
+   the most striking element on the site, but the page is bright throughout now
+   and a single dark panel is the "random dark background" that decision was
+   made to remove. What carried the terminal reading was never the ground: it is
+   the mono grid, the ordinal column and the right-aligned store row, all kept.
+   A ruled row per call does the separating the ink ground used to do. */
+.cc-log { border-radius: 0; padding: 0; overflow-x: auto; }
+.cc-log ol { list-style: none; margin: 0; padding: 0;
+             display: grid; gap: 0; min-width: 640px; }
+/* The colour belongs on the row, not only on the spans inside it: any text
+   added directly to an li would otherwise inherit whatever the section set. */
+.cc-log li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto;
+             gap: 18px; align-items: baseline; color: var(--ink);
+             font-family: var(--font-mono), monospace; font-size: 13px;
+             padding: 10px 0; border-top: 1px solid var(--rule); }
+.cc-log li:first-child { border-top: 0; }
+.cc-log-n { color: var(--muted); }
+.cc-log-call { color: var(--ink); }
+/* The store row the call left behind. Quieter than the call, still AA. */
+.cc-log-left { color: var(--muted); font-size: 11.5px; text-align: right; }
+
+.cc-quote { margin: 18px 0 0; padding-left: 16px;
+            border-left: 2.5px solid var(--accent);
+            font-size: 18px; line-height: 1.45; max-width: 60ch; }
+
+.cc-refusal { border-left: 2.5px solid var(--accent); padding-left: 16px; margin: 22px 0; }
+.cc-refusal-call { display: flex; flex-wrap: wrap; gap: 2px 6px; font-size: 14px; }
+.cc-refusal-out { margin-top: 7px; display: grid; gap: 5px; justify-items: start; }
+.cc-refusal-out p { margin: 0; font-size: 15px; line-height: 1.5;
+                    color: var(--body); max-width: 68ch; }
+.cc-refusal-tool { font-family: var(--font-mono), monospace; font-weight: 500; }
+.cc-refusal-args { font-family: var(--font-mono), monospace; color: var(--muted); }
+.cc-refusal-status { color: var(--accent); }
+
+.cc-clips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.cc-clips figure { margin: 0; }
+.cc-clips video { width: 100%; border-radius: 4px; background: var(--ink); }
+.cc-clips figcaption { margin-top: 9px; font-size: 14.5px; color: var(--body); }
+/* Title and runtime on one baseline, the runtime held to its own width so a
+   wrapping title never pushes it out of the row. cc-ev-*, not cc-clip-*:
+   .cc-clip is the ambient full-bleed video on / and /demo. */
+.cc-ev-cap { display: flex; justify-content: space-between;
+             align-items: baseline; gap: 12px; }
+.cc-ev-dur { flex: none; font-family: var(--font-mono), monospace;
+             font-size: 10px; letter-spacing: 0.13em; color: var(--muted); }
+/* --body, not --muted: this is read before deciding whether to play, so it is
+   body copy, and copy-audit samples every <p> for AAA. */
+.cc-ev-what { margin: 5px 0 0; font-size: 13.5px; line-height: 1.5;
+              color: var(--body); }
+@media (max-width: 767px) {
+  .cc-clips { grid-template-columns: 1fr; }
+  /* The log's third column was clipped off inside a 640px nested scroller with
+     no affordance, so the lede's central claim, that every call is listed
+     beside the row it left in her record, was invisible on a phone. Stack the
+     provenance under its call instead of scrolling to it. */
+  .cc-log { padding: 16px; }
+  .cc-log ol { min-width: 0; gap: 13px; }
+  .cc-log li { grid-template-columns: 22px minmax(0, 1fr); gap: 4px 10px;
+               font-size: 11.5px; }
+  .cc-log-call { overflow-wrap: anywhere; }
+  .cc-log-left { grid-column: 2; text-align: left; font-size: 10.5px; }
+}
+
+/* the console embed */
+.cc-embed iframe { width: 100%; height: min(1200px, 85vh); min-height: 620px;
+                   border: 1px solid var(--rule);
+                   border-radius: 4px; background: var(--panel); }
+.cc-cta-block { display: inline-block; margin-top: 18px; background: var(--accent);
+                color: #fff; font-weight: 600; padding: 12px 22px; border-radius: 3px;
+                text-decoration: none; }
+/* The iframe was display:none below 767px, with a paragraph standing in for it,
+   because the console was a dense laptop instrument and a phone could not see
+   through a window that small. Both are gone: the console now carries its own
+   narrow-width handling and is the whole of /record at every size. */
+@media (max-width: 767px) {
+  .cc-embed iframe { height: 78vh; min-height: 520px; }
+}
+
+/* the doors off Home */
+/* Cards, not a list of links. The doors are the only way onward for a judge who
+   does not touch the nav, so they read as destinations. Each card owns an opaque
+   --surface ground, which is what tests/home.mjs checks for.
+   Aligned to the capability cards 2026-08-09: separate bordered cards on a 20px
+   gutter, rather than three panes joined by 1px hairlines over a --rule ground.
+   The page now has one card language, and the doors distinguish themselves from
+   the feature cards by ground rather than by shape (--surface against --panel),
+   which is also what makes the hover to --panel read as "this one is a link".
+   The background-clip trick the hairline version needed is gone with it. */
+.cc-doors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            margin-top: 8px; }
+.cc-doors a { display: grid; gap: 8px; align-content: start;
+              padding: 24px 24px 26px; background-color: var(--surface);
+              border: 1px solid var(--rule); border-radius: 4px;
+              text-decoration: none; color: var(--ink);
+              transition: background-color 0.25s ease, border-color 0.25s ease; }
+.cc-doors a:hover { background-color: var(--panel); border-color: #d8d4c9; }
+.cc-door-t { font-size: 19px; font-weight: 600; line-height: 1.22;
+             letter-spacing: -0.012em; }
+.cc-door-b { font-size: 14.5px; line-height: 1.48; color: var(--body); max-width: 34ch; }
+.cc-doors a:hover .cc-door-t { color: var(--accent); }
+@media (max-width: 900px) {
+  .cc-doors { grid-template-columns: 1fr; }
+  .cc-doors a { padding: 22px 20px 26px; }
+}
+
+/* Authored focus ring. The UA default lands on vermilion for the CTA and the
+   consent control, the lowest-contrast pairing on the page. */
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
+
+.cc-nowrap { white-space: nowrap; }
+
+/* ---- device chrome (/demo and /) ---- */
+.cc-dev { width: 300px; min-height: 620px; border-radius: 44px;
+          background: var(--ink); padding: 10px; display: flex;
+          box-shadow: 0 28px 60px -28px rgba(28, 22, 14, 0.42),
+                      0 3px 10px rgba(28, 22, 14, 0.10); }
+.cc-app { position: relative; width: 100%; border-radius: 35px;
+          background: #faf8f4; display: flex; flex-direction: column;
+          overflow: hidden; }
+.cc-app--elder { font-size: 17px; }
+.cc-app--carer { font-size: 14px; }
+.cc-dev-island { position: absolute; top: 9px; left: 50%; width: 78px;
+                 height: 22px; margin-left: -39px; border-radius: 11px;
+                 background: var(--ink); z-index: 3; }
+.cc-dev-home { height: 22px; flex: 0 0 auto; position: relative; }
+.cc-dev-home::after { content: ""; position: absolute; bottom: 7px; left: 50%;
+                      width: 106px; height: 4px; margin-left: -53px;
+                      border-radius: 2px; background: var(--ink); opacity: .28; }
+
+.cc-sb { flex: 0 0 auto; display: flex; align-items: center;
+         justify-content: space-between; padding: 13px 20px 6px;
+         color: var(--ink); }
+.cc-sb-time { font-size: 12.5px; font-weight: 600; letter-spacing: .01em; }
+.cc-sb-icons { display: flex; align-items: center; gap: 5px; }
+
+.cc-app-body { flex: 1 1 auto; position: relative;
+               padding: 14px 16px 6px; display: flex; flex-direction: column; }
+
+.cc-tabs { flex: 0 0 auto; display: grid; grid-template-columns: repeat(3, 1fr);
+           border-top: 1px solid var(--rule); padding: 8px 4px 2px;
+           background: rgba(255, 255, 255, .6); }
+.cc-tab { display: grid; justify-items: center; gap: 3px; color: var(--muted); }
+.cc-tab.is-on { color: var(--ink); }
+.cc-tab-l { font-size: 9.5px; letter-spacing: .01em; }
+
+/* ---- app screens ---- */
+.cc-sub { display: flex; flex-direction: column; flex: 1 1 auto; }
+
+.cc-card { background: #fff; border: 1px solid var(--rule); border-radius: 14px;
+           padding: 13px 14px; margin-top: 14px; }
+.cc-card-t { font-size: 18px; font-weight: 600; line-height: 1.2; }
+.cc-card-b { font-size: 13.5px; color: var(--body); margin-top: 3px; }
+.cc-act { margin-top: auto; }
+/* --body, not --muted. On the warm screen ground --muted measures 4.87:1 and
+   fails AAA, and this line is the promise that the app speaks before it
+   records: it cannot be the faintest thing on her screen. */
+.cc-act-n { margin: 9px 0 4px; font-size: 12.5px; color: var(--body);
+            text-align: center; line-height: 1.4; }
+
+.cc-rec { margin: auto 0; display: grid; gap: 12px; justify-items: center; }
+.cc-rec-h { display: flex; align-items: center; gap: 8px;
+            font-size: 15px; font-weight: 600; }
+/* Fourth permitted home for the accent: the live recording indicator.
+   See the accent rule in DESIGN.md. */
+.cc-rec-dot { width: 11px; height: 11px; border-radius: 50%;
+              background: var(--accent); display: inline-block; }
+.cc-rec-t { font-size: 33px; font-weight: 600; letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums; }
+.cc-rec-w { display: flex; align-items: center; gap: 3px; height: 34px; }
+.cc-rec-w i { width: 3px; border-radius: 2px; background: var(--ink);
+              opacity: .55; height: 9px;
+              animation: cc-bar 1.05s ease-in-out infinite alternate; }
+.cc-rec-stop { background: none; border: 1.5px solid var(--ink);
+               border-radius: 999px; padding: 10px 30px; font-size: 16px;
+               font-family: inherit; font-weight: 500; cursor: pointer; }
+@keyframes cc-bar { from { height: 6px; } to { height: 30px; } }
+
+.cc-call { margin: auto 0; display: grid; gap: 9px; justify-items: center;
+           text-align: center; }
+.cc-call-n { font-size: 22px; font-weight: 600; }
+.cc-call-s { font-size: 15px; color: var(--body);
+             font-variant-numeric: tabular-nums; }
+.cc-call-w { display: flex; align-items: flex-end; gap: 5px; height: 30px;
+             margin: 4px 0 2px; }
+/* In-call indicator, the same fourth accent home as the recording dot. */
+.cc-call-w i { width: 5px; border-radius: 3px; background: var(--accent);
+               height: 10px; animation: cc-bar 0.9s ease-in-out infinite alternate; }
+/* The dialect she is being called in is a claim, not metadata. Same ground and
+   the same AAA problem as .cc-act-n. */
+.cc-call-l { font-size: 13.5px; color: var(--body); }
+.cc-call-end { margin-top: 6px; background: var(--ink); color: #fff; border: 0;
+               border-radius: 999px; padding: 11px 32px; font-size: 16px;
+               font-family: inherit; font-weight: 600; cursor: pointer; }
+
+.cc-doses { display: grid; gap: 10px; margin-top: 14px; }
+.cc-dose { background: #fff; border: 1px solid var(--rule); border-radius: 14px;
+           padding: 13px 14px; font-size: 19px; font-weight: 600;
+           line-height: 1.34; }
+.cc-sc-foot { margin-top: auto; padding-top: 10px;
+              border-top: 1px solid var(--rule); }
+
+/* The signature is a mono label set ABOVE its value. This one is a span inside
+   a text block, so without this it sets inline and the signature breaks. */
+.cc-wf-extra .cc-label { display: block; margin-bottom: 3px; }
+
+.cc-h2s { position: relative; margin: 7px 0 12px; min-height: 42px; }
+.cc-h2 { font-size: 17px; line-height: 1.2; font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-rec-w i, .cc-call-w i { animation: none; height: 16px; }
+}
+
+/* ---- co-mounted layers ---- */
+/* Absolute so screens can pass through each other. The device keeps its
+   min-height, and tests/walkthrough.mjs asserts nothing escapes the frame. */
+.cc-lyr { position: absolute; inset: 0; padding: 14px 16px 6px;
+          display: flex; flex-direction: column; }
+.cc-lyr.is-flat { position: relative; inset: auto; padding: 0; }
+.cc-sub { position: absolute; left: 16px; right: 16px; top: 62px; bottom: 6px; }
+.cc-h2s .cc-h2 { position: absolute; inset: 0; }
+.cc-caps { min-height: 15px; position: relative; }
+.cc-caps > span { position: absolute; inset: 0; }
+
+.cc-dev-slot { will-change: transform; }
+.cc-wt-stage { display: grid; grid-template-columns: 1fr 1fr;
+               gap: 34px; justify-items: center; align-items: start; }
+
+.cc-wt-say { animation: cc-up .5s ease both; }
+@keyframes cc-up { from { opacity: 0; transform: translateY(10px); }
+                   to { opacity: 1; transform: none; } }
+
+.cc-rail { list-style: none; margin: 26px 0 0; padding: 0;
+           display: flex; gap: 7px; }
+.cc-rail li { width: 26px; height: 2px; border-radius: 1px;
+              background: var(--rule); transition: background .25s ease; }
+.cc-rail li.is-on { background: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) { .cc-wt-say { animation: none; } }
+
+/* ---- the device at 900px and below ----
+   Last in the file on purpose. A media query carries no extra specificity, so
+   these have to come after the .cc-dev block above or they lose at every width.
+   Two phones stay side by side at reduced scale: stacked inside a pinned 100dvh
+   section the second sat below an unscrollable fold on exactly the three beats
+   that carry the linkage, which is the product's wedge. */
+@media (max-width: 900px) {
+  .cc-wt-stage { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cc-dev { width: 156px; min-height: 322px; border-radius: 24px; padding: 6px;
+            box-shadow: 0 12px 26px -14px rgba(28, 22, 14, 0.4); }
+  .cc-app { border-radius: 19px; }
+  .cc-app--elder { font-size: 11px; }
+  .cc-app--carer { font-size: 8.5px; }
+  .cc-dev-island { top: 5px; width: 44px; height: 13px; margin-left: -22px;
+                   border-radius: 7px; }
+  .cc-dev-home { height: 13px; }
+  .cc-dev-home::after { width: 58px; height: 3px; margin-left: -29px; bottom: 4px; }
+  .cc-sb { padding: 8px 11px 3px; }
+  .cc-sb-time { font-size: 8px; }
+  .cc-sb-icons { gap: 3px; transform: scale(0.62); transform-origin: right center; }
+  .cc-app-body, .cc-lyr { padding: 8px 9px 3px; }
+  .cc-sub { left: 9px; right: 9px; top: 40px; bottom: 3px; }
+  .cc-tabs { padding: 5px 2px 1px; }
+  .cc-tab svg { width: 13px; height: 13px; }
+  .cc-tab-l { font-size: 7px; }
+  .cc-sc-h { font-size: 15px; }
+  .cc-card { padding: 8px 9px; margin-top: 8px; border-radius: 10px; }
+  .cc-card-t { font-size: 12px; }
+  .cc-card-b { font-size: 9px; }
+  .cc-consent { font-size: 11px; padding: 10px 6px; }
+  .cc-act-n { font-size: 8.5px; margin: 6px 0 2px; }
+  .cc-rec { gap: 7px; }
+  .cc-rec-h { font-size: 10px; gap: 5px; }
+  .cc-rec-dot { width: 7px; height: 7px; }
+  .cc-rec-t { font-size: 21px; }
+  .cc-rec-w { height: 20px; gap: 2px; }
+  .cc-rec-stop { font-size: 11px; padding: 7px 18px; }
+  .cc-call-n { font-size: 14px; }
+  .cc-call-s, .cc-call-l { font-size: 9.5px; }
+  .cc-call-w { height: 18px; gap: 3px; }
+  .cc-call-end { font-size: 11px; padding: 8px 20px; }
+  .cc-dose { font-size: 11.5px; padding: 8px 9px; border-radius: 10px; }
+  .cc-doses { gap: 6px; margin-top: 8px; }
+  .cc-h2 { font-size: 10.5px; }
+  .cc-h2s { min-height: 26px; margin: 4px 0 7px; }
+  .cc-wf { gap: 6px; }
+  .cc-wf li { font-size: 8.5px; padding-left: 6px; border-left-width: 2px; }
+  .cc-wf-none { font-size: 7.5px; }
+  .cc-wf-extra { font-size: 8.5px; margin-top: 8px; }
+  .cc-who { font-size: 9px; }
+  .cc-rail { margin-top: 16px; }
+  .cc-rail li { width: 18px; }
+}
+
+/* ---- the art ---- */
+/* width:100% is load-bearing, not tidying. An <svg> is a replaced element with
+   an intrinsic ratio from its viewBox (here 10:1), so with a height set and
+   width left to `left:0; right:0`, the browser resolves width from the ratio
+   instead: 220px tall became 2200px wide inside a 1240px parent and the page
+   scrolled sideways at every viewport. */
+/* Wider than its wrapper, which .cc-wt caps at 1240px, so "full width" used to
+   mean full width of a centred grid: art behind the stage rather than behind
+   the act. Negative insets, NOT 100vw: a vw unit includes the scrollbar gutter
+   and pushes documentElement.scrollWidth past window.innerWidth, which is the
+   exact horizontal overflow home.mjs and copy-audit.mjs both check for.
+   The explicit width is replaced by the two insets, not dropped: an <svg> is a
+   replaced element with an intrinsic ratio from its viewBox (10:1 here), so
+   with a height set and BOTH sides left auto the browser resolves width from
+   the ratio and the page scrolls sideways. left+right together give it a
+   definite width, which is the same guarantee width:100% was making. */
+.cc-tl { position: absolute; left: -56px; right: -56px; top: 50%; height: 260px;
+         margin-top: -130px; opacity: .085; pointer-events: none; z-index: 0; }
+/* clip, not hidden: hidden would make .cc-wt a scroll container and fight the
+   pin, which is the trap already recorded against .cc-in-stage. */
+.cc-wt { overflow-x: clip; }
+/* The stage and the copy sit above the line, never behind it. */
+.cc-wt-copy, .cc-wt-stage { position: relative; z-index: 1; }
+/* A warm wash that follows the device across the stage. --wx is tweened by the
+   walkthrough timeline; it resolves to the opening position without JS. */
+.cc-wt { position: relative; }
+.cc-wt::before { content: ""; position: absolute; inset: 0; z-index: 0;
+                 pointer-events: none;
+                 background: radial-gradient(60% 62% at var(--wx, 66%) 48%,
+                             rgba(207, 168, 120, 0.16), rgba(252, 252, 251, 0) 72%); }
+
+/* ---- reduced-motion / no-JS stack ---- */
+.cc-stack { display: grid; gap: 64px; padding: 40px 56px;
+            max-width: 1180px; margin: 0 auto; }
+.cc-stack-beat { display: grid; grid-template-columns: 1fr 1fr;
+                 gap: 40px; align-items: center; }
+.cc-stack-dev { display: flex; gap: 28px; justify-content: center; }
+/* Without a timeline every sub-region, every heading and every late block would
+   print at once, so each beat states which of its own it shows. Getting this
+   wrong is a truth defect, not a layout one: beat 1 printed the consent card
+   under copy saying nothing has started, and the daughter's screen printed
+   "nothing to report" on the morning before the call was placed. */
+.cc-stack .cc-sub { display: none; position: relative;
+                    left: auto; right: auto; top: auto; bottom: auto; }
+.cc-stack-beat[data-stage="idle"] .cc-sub[data-sub="idle"],
+.cc-stack-beat[data-stage="ready"] .cc-sub[data-sub="ready"],
+.cc-stack-beat[data-stage="rec"] .cc-sub[data-sub="rec"] { display: flex; }
+
+.cc-stack .cc-h2s .cc-h2 { position: relative; inset: auto; display: none; }
+.cc-stack-beat[data-h="handover"] .cc-h2[data-h2="handover"],
+.cc-stack-beat[data-h="call"] .cc-h2[data-h2="call"],
+.cc-stack-beat[data-h="after"] .cc-h2[data-h2="after"] { display: block; }
+.cc-stack .cc-h2s { min-height: 0; }
+
+.cc-stack [data-late="1"] { display: none; }
+.cc-stack-beat[data-h="after"] [data-late="1"] { display: block; }
+/* The three that produced an event, lit only on the beat where they had. The
+   pinned timeline tweens this colour on; the stack has no timeline, so without
+   this the last beat's screen would say three came back and show four greys. */
+.cc-stack-beat[data-h="after"] .cc-wf li[data-done="1"] {
+  border-left-color: var(--accent); }
+@media (max-width: 900px) {
+  .cc-stack { padding: 32px 20px; gap: 44px; }
+  .cc-stack-beat { grid-template-columns: 1fr; gap: 20px; }
+  .cc-stack-dev { gap: 14px; }
+}
+
+/* ---- the turn, and act two ---- */
+/* Released from both pins on purpose. After ~4,200px of pinned act one, a
+   block that simply scrolls is the rest before act two takes the viewport. */
+.cc-turn { max-width: 1240px; margin: 0 auto; padding: 108px 56px;
+           border-top: 1px solid var(--rule); }
+.cc-turn h2 { font-size: 38px; line-height: 1.1; letter-spacing: -0.028em;
+              font-weight: 600; margin: 12px 0 14px; max-width: 20ch; }
+.cc-turn p { font-size: 17px; line-height: 1.5; color: var(--body); max-width: 52ch; }
+
+/* Act one is 1fr 1fr because two phones balance the copy. Act two's stage is a
+   single wide chart, which needs the room a second column would take. */
+.cc-in { min-height: 100dvh; display: grid; grid-template-columns: 5fr 7fr;
+         align-items: center; gap: 56px; padding: 0 56px;
+         max-width: 1240px; margin: 0 auto; position: relative; }
+.cc-in-stage { position: relative; }
+/* The chart and its readouts. --dev is tweened from 0 to the device's width
+   plus a gutter on beat 6, so the device takes the right of the stage instead
+   of covering them. A percentage was tried and is wrong: the stage shrinks
+   below 1240px and the device does not, so the two collide at 1000px. */
+.cc-in-main { width: calc(100% - var(--dev, 0px)); }
+.cc-stack-beat--in .cc-in-stage { min-height: 200px; }
+
+@media (max-width: 900px) {
+  .cc-turn { padding: 64px 20px; }
+  .cc-turn h2 { font-size: 28px; }
+  .cc-in { grid-template-columns: 1fr; gap: 22px; padding: 32px 20px;
+           align-content: center; }
+}
+
+/* ---- the marker chart ---- */
+.cc-chart { margin: 0; }
+.cc-chart-cap { display: flex; justify-content: space-between; gap: 16px;
+                margin-bottom: 10px; }
+/* See the component header: an <svg> resolves width from its viewBox ratio
+   unless width is set, and 440:120 inside a 620px column is 2,275px wide. */
+.cc-chart-svg { display: block; width: 100%; height: 210px; overflow: visible; }
+.cc-chart-line { stroke: var(--ink); stroke-width: 1.4;
+                 stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.cc-chart-dot { fill: var(--ink); }
+.cc-chart-dot.is-gap { fill: none; }
+.cc-chart-band { fill: rgba(11, 11, 11, 0.055); }
+.cc-chart-mid { stroke: var(--rule); stroke-width: 1;
+                vector-effect: non-scaling-stroke; }
+.cc-chart-gap { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 3;
+                vector-effect: non-scaling-stroke; }
+/* Accent home 3, flags, applied to a region rather than a left rule: this
+   region's left edge is where her baseline period ends and the stretch the
+   finding is about begins. See DESIGN.md. The count of homes stays at four.
+   Named .cc-chart-conf until 2026-08-09, when act two stopped ending on a
+   flag being withheld and started ending on one being raised. */
+.cc-chart-flag { fill: rgba(207, 48, 22, 0.07); }
+.cc-chart-flag-edge { stroke: var(--accent); stroke-width: 1;
+                      vector-effect: non-scaling-stroke; }
+
+@media (max-width: 900px) {
+  .cc-chart-svg { height: 150px; }
+}
+
+/* ---- act two's readouts ---- */
+/* Co-mounted and stacked in one grid cell, so a fading block never reflows the
+   one arriving. Only the tallest sets the height. */
+.cc-facts { display: grid; margin-top: 20px; min-height: 132px; }
+.cc-fact { grid-area: 1 / 1; }
+.cc-fact p { font-size: 15.5px; line-height: 1.5; color: var(--body);
+             max-width: 54ch; margin: 6px 0 0; }
+.cc-fact-why { font-size: 14px !important; margin-top: 8px !important; }
+.cc-fams { list-style: none; margin: 8px 0 0; padding: 0;
+           display: grid; gap: 5px; }
+.cc-fams li { display: flex; gap: 12px; align-items: baseline;
+              font-size: 14.5px; color: var(--body); }
+.cc-fam-n { min-width: 104px; font-weight: 600; color: var(--ink); }
+/* Struck, not hidden. The page's argument is that the ineligible family is
+   named and excluded, rather than quietly absent. */
+.cc-fams li[data-on="0"] .cc-fam-n,
+.cc-fams li[data-on="0"] .cc-fam-m { text-decoration: line-through;
+                                     color: var(--muted); }
+
+/* Without a timeline every readout prints at once, which would show the block
+   on the beat before the medication is named. Each stack beat states its own. */
+.cc-stack .cc-fact { display: none; }
+.cc-stack .cc-in-stage[data-shows~="gaps"] .cc-fact[data-fact="missing"],
+.cc-stack .cc-in-stage[data-shows~="families"] .cc-fact[data-fact="families"],
+.cc-stack .cc-in-stage[data-shows~="band"] .cc-fact[data-fact="band"],
+.cc-stack .cc-in-stage[data-shows~="flagged"] .cc-fact[data-fact="flagged"],
+.cc-stack .cc-in-stage[data-shows~="scopes"] .cc-fact[data-fact="scopes"] {
+  display: block; }
+.cc-stack .cc-facts { min-height: 0; gap: 18px; }
+.cc-stack .cc-fact { grid-area: auto; }
+/* The stack is a real path for act two, not only the reduced-motion fallback:
+   below PIN_FROM in Instrument.tsx it is what everyone gets. So the device has
+   to sit in flow here rather than absolutely over the stage, which is what the
+   pinned composition needs. */
+.cc-stack .cc-in-dev { position: relative; right: auto; top: auto;
+                       margin-top: 16px; display: flex; justify-content: center; }
+
+/* ---- beat 6: the digest, and who holds what ---- */
+/* Over the chart rather than beside it: at 1240px there is no third column,
+   and the finding it holds is about that chart. */
+.cc-in-dev { position: absolute; right: 0; top: -18px; z-index: 2; }
+.cc-dg-h { font-size: 19px; font-weight: 600; line-height: 1.2;
+           margin: 6px 0 8px; color: var(--ink); }
+.cc-dg-b { font-size: 14px; line-height: 1.45; color: var(--body); margin: 0; }
+.cc-dg-n { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--rule); }
+.cc-dg-c { font-size: 13px; color: var(--body); margin-top: 3px; }
+
+/* Rows, not columns. Three columns needed 95px each once the device took the
+   right of the stage, which broke "Appt summary" onto two lines; and stacked
+   as three tall blocks on mobile it pushed the device itself below an
+   unscrollable fold inside the pin. One row per recipient reads the same and
+   fits both. */
+.cc-scopes { display: grid; gap: 10px; margin-top: 8px; }
+.cc-scope { display: grid; grid-template-columns: 92px 1fr; gap: 4px 12px;
+            align-items: baseline; }
+.cc-scope-w { font-size: 15px; font-weight: 600; color: var(--ink); }
+.cc-scope > .cc-label { grid-column: 1; }
+.cc-scope ul { grid-column: 2; grid-row: 1 / 3; list-style: none;
+               margin: 0; padding: 0;
+               display: flex; flex-wrap: wrap; gap: 3px 10px; }
+.cc-scope li { font-size: 13px; color: var(--body); }
+/* The drift scope is what act two is about, so it is the one marked. Ink and
+   weight, not accent: this is emphasis, not a refusal. */
+.cc-scope li[data-drift="1"] { font-weight: 600; color: var(--ink); }
+
+@media (max-width: 900px) {
+  /* Stacked under the chart on mobile. Absolutely positioned it covered the
+     chart entirely at 390px, which loses the beat's subject. */
+  .cc-in-dev { position: relative; right: auto; top: auto; margin-top: 14px;
+               display: flex; justify-content: center; }
+  /* The width tween is a desktop composition. On mobile the device stacks
+     under the chart, so the main column must stay full width or the chart
+     loses half its room for nothing. */
+  .cc-in-main { width: 100%; }
+  .cc-scopes { gap: 7px; }
+  .cc-scope { grid-template-columns: 78px 1fr; }
+  .cc-scope-w { font-size: 13.5px; }
+  .cc-scope li { font-size: 12px; }
+  .cc-facts { min-height: 0; }
+  /* The timeline parks the device at xPercent 14 before beat 6, and a
+     visibility:hidden element still contributes to scrollWidth, so at 390px
+     that translate pushed the page 29px sideways. `clip` rather than `hidden`:
+     hidden would make this a scroll container and fight the pin. */
+  .cc-in-stage { overflow-x: clip; }
+}
+
+/* ---- homepage bands (the 2026-08-09 rebuild) ---- */
+.cc-band { padding: 54px 0; position: relative; z-index: 2; }
+.cc-band-in { display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+              align-items: start; }
+.cc-band-b { font-size: 17px; line-height: 1.55; color: var(--body);
+             max-width: 46ch; margin: 0; }
+.cc-ev-lede { margin: 12px 0 30px; }
+
+.cc-fig-v { font-size: clamp(40px, 4.8vw, 60px); line-height: 1;
+            letter-spacing: -0.035em; font-weight: 600; margin: 12px 0 0; }
+.cc-fig-g { font-size: 17px; line-height: 1.5; color: var(--body);
+            max-width: 40ch; margin: 14px 0 0; }
+.cc-fig-s { margin: 16px 0 0; }
+
+/* Asymmetric. At 1fr 1fr the three readers and the three refusals were the
+   same weight, and neither filled its column. The readers are the wider,
+   larger-set claim; the refusals are a tighter list beside it. */
+.cc-two { display: grid; grid-template-columns: 7fr 5fr; gap: 72px;
+          align-items: start; }
+/* Both columns of the audience band, on one rhythm. The right-hand list ran as
+   plain 16.5px bullets against the left's ruled 18.5px set, so two lists that
+   answer each other ("who this is for" / "what it is not") looked like a
+   heading and a footnote. Each item is now a claim on its own line over its
+   qualification, under a hairline, in both columns. */
+.cc-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.cc-list li { display: grid; gap: 5px; font-size: 16px; line-height: 1.5;
+              color: var(--body); max-width: 44ch;
+              border-top: 1px solid var(--rule); padding: 14px 0 15px; }
+.cc-list b { color: var(--ink); font-weight: 600; font-size: 17.5px;
+             line-height: 1.3; letter-spacing: -0.012em; }
+/* The readers are the wider, larger-set claim; the refusals are the tighter
+   list beside them, so only this one steps up in size. */
+.cc-list--num li { max-width: 40ch; }
+.cc-list--num b { font-size: 19px; }
+/* The shared .cc-refusal has no top margin of its own on /agent, where it sits
+   in a list. Here it closes a column and needs the air. */
+.cc-home-ref { margin-top: 30px; max-width: 46ch; }
+.cc-home-ref .cc-quote { font-size: 16px; margin-top: 10px; padding-left: 0;
+                         border-left: 0; }
+.cc-home-ref .cc-quiet { display: inline-block; margin-top: 14px; }
+
+/* ---- the capability act ---- */
+/* .cc-linkage kept its name and its type: it set the "the visit writes what the
+   next call asks" line in the evidence act, and now sets this act's opening
+   statement. Widened from 20ch, which was measured for a six-word line. */
+.cc-linkage {
+  font-size: clamp(26px, 3.3vw, 38px); line-height: 1.1; letter-spacing: -0.03em;
+  font-weight: 600; color: var(--ink); margin: 14px 0 0; max-width: 26ch;
+}
+.cc-solution { padding: 76px 0 84px; }
+/* The statement and the claim it rests on, side by side. The heading alone left
+   the right half of the act empty above a 2x2 grid, which read as a gap in the
+   composition rather than as air. align-items: end so the two baselines settle
+   together whatever the heading wraps to. */
+.cc-sol-head { display: grid; grid-template-columns: 7fr 5fr; gap: 60px;
+               align-items: end; }
+.cc-sol-lede { max-width: 44ch; }
+/* 2x2, not a row of four. Each panel carries a full paragraph and a value off
+   the record; at a quarter of 1180px those set to about 22 characters. */
+/* Tighter gutters than the 44/60 this had as bare columns: cards carry their own
+   padding, so the space between them is separation rather than measure. */
+.cc-sol-grid { list-style: none; margin: 48px 0 0; padding: 0;
+               display: grid; grid-template-columns: 1fr 1fr;
+               gap: 20px; }
+/* Cards, on their own warm ground. They were four columns of running text under
+   hairlines, which read as four paragraphs rather than as the product's four
+   parts. --panel is the one separating ground the bright-site rule allows, and
+   `background-color` is set as a literal rather than through a redeclared token,
+   per the note on --ink further up. Flex column so the value line can be pushed
+   to the floor of every card whatever the body above it wraps to, which is what
+   makes a 2x2 of unequal copy read as a set. */
+/* The border is #d8d4c9, one step darker than --rule, and it is not tidying.
+   --panel (#f3f1ec) against the page gradient's warm middle (--wash, #f6f3ec)
+   is a three-point difference, so at --rule the card edges were barely present
+   and the 2x2 read as text in vague boxes. The same value is the doors' hover
+   border, so the page has one card edge. */
+.cc-sol { background-color: var(--panel); border: 1px solid #d8d4c9;
+          border-radius: 4px; padding: 22px 24px 20px;
+          display: flex; flex-direction: column; }
+/* The ordinal, and the reason the cards read as 01 through 04 rather than as
+   four unrelated claims. Mono, at the label's tracking, sized to sit as an
+   object beside the label rather than as a bullet before it. */
+.cc-sol-h { display: flex; align-items: baseline; gap: 12px; }
+.cc-sol-n { font-family: var(--font-mono), monospace; font-size: 22px;
+            font-weight: 500; letter-spacing: -0.02em; color: var(--ink);
+            line-height: 1; }
+.cc-sol-t { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em;
+            font-weight: 600; color: var(--ink); margin: 16px 0 0; max-width: 24ch; }
+.cc-sol-b { font-size: 16px; line-height: 1.55; color: var(--body);
+            margin: 10px 0 18px; max-width: 44ch; }
+/* The checkable value, on the card floor under a rule that spans it. --body,
+   not --muted: copy-audit samples every <p> for AAA and --muted is 5.03:1. */
+.cc-sol-d { font-size: 14.5px; line-height: 1.5; color: var(--body);
+            margin: auto 0 0; padding-top: 14px;
+            border-top: 1px solid var(--rule); }
+
+@media (max-width: 900px) {
+  .cc-solution { padding: 48px 0 56px; }
+  .cc-sol-head { grid-template-columns: 1fr; gap: 20px; }
+  .cc-sol-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 36px; }
+}
+
+@media (max-width: 860px) {
+  .cc-hero { padding: 46px 0 38px; }
+  .cc-band { padding: 36px 0; }
+  .cc-band-in { grid-template-columns: 1fr; gap: 22px; }
+  .cc-two { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ---- ambient clips ---- */
+.cc-clip { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Per-room crop bias (2026-08-10): pulls the visible window down toward each
+   clip's table, without changing the box the clip fills. See Rooms.tsx.
+   Hero's table already sits above .cc-room-band at normal aspect ratios
+   (object-position has no effect there — see globals.css history — but this
+   is a harmless no-op, not the fix).
+   Kitchen's table sits low enough that it's covered by .cc-room-band
+   (opaque, bottom 30dvh) at essentially every realistic window shape: the
+   clip's own height already matches the box height with zero slack, so
+   object-position has nothing to shift. translateY does what object-position
+   can't: it slides the whole frame up, clipping the (irrelevant) ceiling at
+   the top and opening a blank strip at the bottom — which .cc-room-band
+   already covers completely, so the gap is never visible. -24% is comfortably
+   inside the 30% band budget, leaving a safety margin against edge-case
+   window shapes without needing to zoom. */
+.cc-clip--crop-hero { object-position: 50% 78%; }
+.cc-clip--crop-kitchen { transform: translateY(-24%); }
+/* ---- the showcase hero ---- */
+/* This hero has been three things. A viewport-tall type hero, reverted as
+   swallowing the page. A 55dvh film band over the consultation room, which put
+   the problem first and put that room one screen from the identical room the
+   first pinned figure opens on. Now a full-screen product showcase, on Brian's
+   call of 2026-08-09.
+   The height is the first screen MINUS the sticky nav, not 100dvh: the nav is in
+   flow, so a 100dvh hero starts at y=66 and ends 66px past the fold, which pushes
+   the primary action below it and fails tests/home.mjs. dvh, not vh: on mobile
+   Safari a vh unit is measured with the URL bar retracted, so the action would
+   sit under the chrome on first paint. */
+.cc-hero--show { min-height: calc(100dvh - 66px);
+                 display: flex; align-items: center;
+                 padding: clamp(24px, 4vh, 52px) 0; position: relative; z-index: 2; }
+/* Copy leads. The device column is sized to the phone plus the chart card that
+   overlaps it, and it is the column that gives when the viewport narrows. */
+.cc-show-in { display: grid; grid-template-columns: 7fr 5fr; gap: 64px;
+              align-items: center; width: 100%; }
+.cc-show-copy { max-width: 34rem; }
+.cc-hero--show .cc-hero-h1 { font-size: clamp(34px, 4.2vw, 60px); max-width: 15ch;
+                             margin: 14px 0 0; }
+.cc-hero--show .cc-lede { max-width: 46ch; }
+.cc-hero--show .cc-hero-acts { margin-top: 34px; }
+
+/* The product, presented as an object on paper rather than a screenshot in a
+   box. The card overlaps the phone's lower left so the two read as one exhibit;
+   both carry the same soft drop the evidence act gives its devices. */
+.cc-show-art { position: relative; display: flex; justify-content: center;
+               padding: 0 0 46px; }
+/* min-height overridden down from the shared 620px. Her record is four short
+   rows, so at 620 the screen was two thirds empty and the column out-measured
+   the headline beside it. */
+.cc-show-dev .cc-dev { width: 282px; min-height: 552px;
+                       box-shadow: 0 30px 70px rgba(11, 11, 11, 0.15),
+                                   0 2px 8px rgba(11, 11, 11, 0.06); }
+.cc-show-card { position: absolute; left: -16px; bottom: 0; width: 268px;
+                background-color: var(--surface); border: 1px solid var(--rule);
+                border-radius: 4px; padding: 14px 16px 12px;
+                box-shadow: 0 18px 44px rgba(11, 11, 11, 0.12); }
+/* 84px, not the 210px the chart takes on /demo. Here it is a signature of the
+   instrument, not the instrument itself; the act two stage is where it is read. */
+.cc-show-card .cc-chart-svg { height: 84px; }
+.cc-show-card .cc-chart-cap { margin-bottom: 8px; }
+.cc-show-card-f { margin-top: 10px; }
+
+@media (max-width: 1000px) {
+  /* Below this the two columns cannot both hold their measure, and a phone
+     beside a 15ch headline reads as a gap rather than a pairing. The copy
+     stacks above the product, which also keeps the primary action above the
+     fold on a 844px screen, the state tests/home.mjs checks at 390x844. */
+  .cc-hero--show { min-height: 0; padding: 34px 0 46px; }
+  .cc-show-in { grid-template-columns: 1fr; gap: 40px; }
+  .cc-show-art { justify-content: flex-start; padding-bottom: 34px; }
+  .cc-show-card { left: auto; right: 0; }
+}
+
+@media (max-width: 620px) {
+  /* The card cannot overlap a 290px phone in a 350px column without covering
+     the dose lines it is there to sit beside. It goes underneath. */
+  .cc-show-art { flex-direction: column; align-items: flex-start; gap: 22px;
+                 padding-bottom: 0; }
+  .cc-show-card { position: static; width: 100%; max-width: 320px; }
+}
+/* A gradient, not a flat veil. At a uniform 0.34 the whole frame went olive and
+   murky, which is the one thing the daylight brief rules out. Only the rooms
+   use this now; the hero carries no footage since the showcase replaced the
+   film band, and .cc-rooms overrides the stops with an evener set. */
+.cc-scrim { position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(180deg,
+              rgba(11, 11, 11, 0) 0%,
+              rgba(11, 11, 11, 0.04) 30%,
+              rgba(11, 11, 11, 0.30) 62%,
+              rgba(11, 11, 11, 0.62) 100%); }
+
+/* ---- the pinned rooms ---- */
+.cc-rooms { position: relative; height: 100dvh; overflow: hidden; isolation: isolate; }
+/* Every room fills the pinned viewport and they stack on each other; the
+   timeline cross-fades between them. `visibility` is driven by GSAP's autoAlpha
+   so an invisible layer cannot be read by a screen reader or hit-tested. */
+.cc-room { position: absolute; inset: 0; z-index: 0; }
+
+/* The opaque lower third. This is what lets the copy be cinematic AND
+   AAA-scoreable at once: copy-audit's groundOf walk terminates on this band's
+   background-color rather than continuing to body, so the paragraph inside is
+   measured against --ink and never against a moving frame. Do not make it
+   translucent; a semi-transparent ground resolves to non-opaque and the walk
+   falls through to body, scoring every line here against --surface while the
+   reader sees it on a photograph. */
+.cc-room-band {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  /* --surface, and it must stay fully OPAQUE. This band is the whole reason the
+     copy can sit over footage at all: copy-audit resolves an element's ground by
+     walking ancestors for an opaque backgroundColor, so a translucent band falls
+     through to body and every line here is scored against a ground the reader
+     cannot see. It was --ink for half a day; the page is bright now. */
+  background-color: var(--surface);
+  border-top: 1px solid var(--rule);
+  padding: 26px 0 28px; min-height: 30dvh;
+  display: flex; align-items: center;
+}
+/* The rooms take a lighter, evener scrim than the hero. The hero's is weighted
+   to its bottom third because the headline sits there; here the band covers
+   that stretch entirely, so the same gradient only darkens photograph nobody
+   is reading over. */
+.cc-rooms .cc-scrim, .cc-rooms-film .cc-scrim {
+  background: linear-gradient(180deg,
+    rgba(11, 11, 11, 0.16) 0%,
+    rgba(11, 11, 11, 0.04) 45%,
+    rgba(11, 11, 11, 0.22) 100%);
+}
+/* A single-cell grid. All three figures are placed in that one cell so they
+   overlay rather than stack, which is what lets the timeline cross-fade them;
+   the cell's height is the tallest of the three, so the band does not resize
+   between beats. */
+.cc-room-in { position: relative; width: 100%; display: grid;
+              grid-template-columns: 1fr; }
+.cc-room-step { position: absolute; top: -22px; left: 24px; }
+/* Co-mounted, so they occupy one grid cell and the timeline chooses. */
+.cc-room-fig { grid-column: 1; grid-row: 1;
+               display: grid; grid-template-columns: 1fr 1fr;
+               gap: 56px; align-items: start; }
+/* The figure is the frame's title card, not a caption on it. Sized so the band
+   stays around a third of the frame: at clamp(52px, 7vw, 104px) the tallest of
+   the three figures made the cell 372px and the band 436px, which is 48% of a
+   900px viewport and left the room looking cropped rather than filmed. The cell
+   is sized by the TALLEST figure on purpose, so the band does not resize
+   between beats. */
+.cc-room-fig .cc-fig-v { font-size: clamp(44px, 5.4vw, 78px); margin-top: 6px; }
+.cc-room-fig .cc-fig-g { max-width: 38ch; font-size: 16px; margin-top: 10px; }
+.cc-room-fig .cc-fig-s { margin-top: 12px; }
+.cc-room-fig .cc-band-b { max-width: 46ch; font-size: 16px; }
+
+/* The unpinned path, below 768px wide or 640px tall, and under reduced motion.
+   A first-class path: the same three figures at full bleed, scrolling. */
+.cc-rooms-beat { position: relative; min-height: 92dvh; display: flex;
+                 flex-direction: column; justify-content: flex-end; }
+.cc-rooms-film { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.cc-rooms-stack .cc-room-band { position: relative; min-height: 0;
+                                padding: 26px 0 30px; }
+.cc-rooms-stack .cc-room-in { display: block; }
+.cc-rooms-stack .cc-fig-v { font-size: clamp(38px, 9vw, 62px); }
+
+/* ---- full-bleed light acts ---- */
+/* .cc-inv is gone with the dark grounds. What survives is the ability for a
+   section to reach both edges while its content keeps the 1180px measure, which
+   is what makes the evidence act and the tool-call act read as acts rather than
+   as blocks in a column. They separate from the page with --panel and a
+   hairline, never with a dark ground. */
+.cc-act {
+  border-block: 1px solid var(--rule);
+  position: relative;
+  z-index: 2;
+}
+/* Full-bleed out of any centred wrapper without a horizontal scrollbar.
+   margin-left: calc(50% - 50vw) is deliberately NOT used: it measures the
+   viewport including the scrollbar gutter and pushes documentElement.scrollWidth
+   past window.innerWidth, which is the exact overflow tests/home.mjs and
+   copy-audit.mjs both check for at 390px. */
+.cc-bleed { width: 100%; margin-inline: 0; }
+
+/* The device states its own tokens rather than inheriting whatever a section
+   set. Kept after the dark grounds were removed, because it costs nothing and
+   it is why a screen can never again render white-on-white the way the elder's
+   dose lines did for half a day: every element on those screens is a <div> or
+   <span>, which copy-audit.mjs never samples, so nothing else would catch it.
+   home.mjs sweeps device-screen contrast directly for the same reason. */
+.cc-dev {
+  --ink: #0b0b0b;
+  --body: #3a3936;
+  --muted: #6f6d68;
+  --rule: #e4e1d9;
+  color: var(--ink);
+}
+
+/* ---- /demo act one's stage ---- */
+/* One size, top-aligned. The elder's phone used to lead: 26px lower and scaled
+   1.04 for beats 1-3, 0.94 once the daughter's arrived, on the argument that
+   her record is what the visit produces. Reverted on Brian's call of
+   2026-08-10: the two phones are now the same object seen twice, which is what
+   makes the pair read as a pair, and the elder's larger, lower placement was
+   also what pushed her phone's bottom past the fold on beats 1-3 while the
+   daughter's fitted. The matching scale tweens came out of Walkthrough.tsx.
+   Specificity note: .cc-wt-stage .cc-dev is 0,2,0 and beats the bare .cc-dev
+   mobile override at 0,1,0 regardless of the media query, so the narrow-width
+   counterpart is written at the END of this file, not here. */
+.cc-wt-stage { gap: 44px; align-items: flex-start; }
+.cc-wt-stage .cc-dev { width: 320px; }
+
+/* ---- /demo's second act ---- */
+/* Act two had a dark ground for half a day and is back on the page ground. Its
+   chart, band and flag fills are the originals, tuned for cream, so nothing
+   here overrides them. The act reads as a turn through the interstitial and the
+   copy, not through a change of ground. */
+.cc-turn.cc-act { padding: 96px 0; margin: 0; max-width: none; }
+
+@media (max-width: 900px) {
+  .cc-turn.cc-act { padding: 56px 0; }
+}
+
+/* The interior routes opened two type sizes below the homepage, which is what
+   made them look older than / rather than quieter than it. */
+.cc-hero-left--big { padding: 64px 0 0; border-top: 1px solid var(--rule); }
+.cc-hero-left--big h1 { font-size: clamp(34px, 4.4vw, 58px); line-height: 1.04;
+                        letter-spacing: -0.032em; max-width: 18ch; margin: 14px 0 0; }
+.cc-hero-left--big .cc-lede-left { font-size: 18px; margin-top: 18px; }
+
+/* /demo's one disclosure: the walkthrough is a representative case, and the
+   record the agent actually wrote is on /record. --body, not --muted:
+   copy-audit samples every <p> for AAA and --muted is 5.03:1. */
+.cc-demo-note { margin-top: 16px; font-size: 14.5px; line-height: 1.5;
+                color: var(--body); border-left: 1px solid var(--rule);
+                padding-left: 14px; max-width: 60ch; }
+.cc-demo-note a { color: var(--body); }
+
+@media (max-width: 900px) {
+  .cc-hero-left--big { padding-top: 36px; }
+}
+
+/* ---- /agent's tool-call act ---- */
+.cc-agent-act { padding: 60px 0 68px; margin: 46px 0 8px; }
+.cc-agent-act .cc-log { background: transparent; border-radius: 0; padding: 0; }
+
+@media (max-width: 900px) {
+  .cc-agent-act { padding: 38px 0 44px; margin-top: 32px; }
+}
+
+/* ---- the evidence act ---- */
+.cc-evidence { padding: 76px 0 84px; margin-top: 40px; }
+/* No top rule or margin any more: this used to close a "visit, call, record"
+   block that moved into the capability act, and it now opens the section, where
+   a hairline immediately under the act's own border reads as a mistake. */
+.cc-ev-head { margin-top: 0; }
+/* A soft drop, not a lit key. On the warm ground the device needs to sit rather
+   than glow, so this is the shadow a physical object casts on paper. */
+.cc-evidence .cc-dev { box-shadow: 0 26px 60px rgba(11, 11, 11, 0.13),
+                                   0 2px 8px rgba(11, 11, 11, 0.06); }
+.cc-routing { display: grid; grid-template-columns: auto 1fr; gap: 10px 20px;
+              margin: 8px 0 0; align-items: baseline; max-width: 60ch; }
+.cc-routing dt { padding-top: 4px; }
+.cc-routing dd { margin: 0; font-size: 17px; line-height: 1.45; color: var(--body); }
+
+@media (max-width: 900px) {
+  .cc-evidence { padding: 48px 0 56px; }
+}
+
+@media (max-width: 860px) {
+  .cc-room-fig { grid-template-columns: 1fr; gap: 16px; }
+  /* The narrow-width counterpart to .cc-wt-stage .cc-dev, and it has to live
+     here at the end of the file. A media query adds no specificity, so the
+     0,2,0 desktop rule beats the bare .cc-dev { width: 156px } mobile override
+     at 0,1,0 at EVERY width; only a rule of equal specificity written later
+     wins. Two 320px phones in a 390px viewport is the overflow DESIGN.md
+     records as the reason the pair must stay side by side. */
+  .cc-wt-stage { gap: 14px; }
+  .cc-wt-stage .cc-dev { width: 156px; }
+  .cc-tl { left: -20px; right: -20px; height: 180px; margin-top: -90px; }
+}
+
+/* ---- /agent's explanatory sections (2026-08-09) ---- */
+/* One card language with / and its doors: a 4px-radius rectangle, a #d8d4c9
+   border one step darker than --rule, an opaque ground. Body copy is --body
+   throughout, never --muted: copy-audit samples p, li and dd for AAA at 7:1,
+   and every one of those three elements appears below. */
+
+.cc-arch { list-style: none; margin: 22px 0 8px; padding: 0;
+           display: flex; flex-direction: column; gap: 0; max-width: 900px; }
+.cc-arch-l { position: relative; background-color: var(--panel);
+             border: 1px solid #d8d4c9; border-radius: 4px;
+             padding: 18px 22px 16px; margin-bottom: 26px; }
+.cc-arch-l:last-child { margin-bottom: 0; }
+.cc-arch-h { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.cc-arch-n { font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+             color: var(--ink); }
+.cc-arch-b { font-size: 15px; line-height: 1.55; color: var(--body);
+             margin: 8px 0 0; max-width: 74ch; }
+/* The connector. A rule between one card and the next, drawn from the card
+   above so the last card has none. */
+.cc-arch-c { position: absolute; left: 34px; bottom: -26px; width: 1px;
+             height: 26px; background: #d8d4c9; }
+
+.cc-skills { display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+             margin: 22px 0 8px; }
+.cc-skill { background-color: var(--panel); border: 1px solid #d8d4c9;
+            border-radius: 4px; padding: 22px 24px 20px; }
+.cc-skill h3 { font-size: 20px; font-weight: 600; letter-spacing: -0.015em;
+               margin: 0 0 14px; }
+.cc-skill .cc-label { margin-top: 16px; }
+.cc-skill .cc-label:first-of-type { margin-top: 0; }
+.cc-skill-t { font-size: 15px; line-height: 1.5; color: var(--body);
+              margin: 6px 0 0; }
+.cc-skill-d { list-style: none; margin: 14px 0 0; padding: 0; }
+.cc-skill-d li { font-size: 14.5px; line-height: 1.5; color: var(--body);
+                 border-top: 1px solid var(--rule); padding: 9px 0; }
+.cc-skill-w { font-size: 15px; line-height: 1.5; color: var(--body);
+              margin: 6px 0 0; }
+
+/* The replayed/live boundary. Same card language as .cc-skill above, and the
+   two columns are deliberately equal: the live column is the flattering half,
+   and giving it more weight would be the same move as burying the other one. */
+.cc-prov { display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+           margin: 20px 0 0; align-items: start; }
+.cc-prov-card { background-color: var(--panel); border: 1px solid #d8d4c9;
+                border-radius: 4px; padding: 20px 24px 18px; }
+.cc-prov-list { list-style: none; margin: 10px 0 0; padding: 0; }
+.cc-prov-list li { font-size: 14.5px; line-height: 1.5; color: var(--body);
+                   border-top: 1px solid var(--rule); padding: 9px 0; }
+.cc-prov-list li a { color: var(--body); border-bottom: 1px solid #c9c4b6; }
+.cc-prov-close { margin-top: 18px; }
+
+/* Columns, not a grid: the groups are five uneven lists, and on a grid the
+   six-tool appointment card sets its row height and leaves a hole beside it
+   that pushes the fifth card onto a row of its own. Columns pack them and
+   read down-then-across, which is how a reference list wants to be read. The
+   negative bottom margin cancels the last card's own margin in each column. */
+.cc-tools { columns: 2; column-gap: 20px; margin: 22px 0 -12px; }
+.cc-toolg { break-inside: avoid; margin: 0 0 20px;
+            background-color: var(--panel); border: 1px solid #d8d4c9;
+            border-radius: 4px; padding: 20px 22px 18px; }
+.cc-toolg dl { margin: 12px 0 0; }
+.cc-tool { border-top: 1px solid var(--rule); padding: 9px 0; }
+.cc-tool dt { font-family: var(--font-mono), monospace; font-size: 13px;
+              color: var(--ink); letter-spacing: -0.01em;
+              overflow-wrap: anywhere; }
+.cc-tool dd { font-size: 14px; line-height: 1.5; color: var(--body);
+              margin: 3px 0 0; }
+
+@media (max-width: 900px) {
+  .cc-skills { grid-template-columns: 1fr; }
+  .cc-prov { grid-template-columns: 1fr; }
+  .cc-tools { columns: 1; }
+  .cc-arch-l { padding: 16px 18px 14px; }
+  .cc-arch-c { left: 26px; }
+}

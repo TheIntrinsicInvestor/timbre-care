@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+.env*
+
+# store scratch
+agent/data/*.lock
+agent/data/*.tmp
+agent/data/*.bak
+
+# site build output
+site/node_modules/
+site/.next/
+site/out/
+site/next-env.d.ts
+site/*.tsbuildinfo
+site/.verify/
+
+.playwright-mcp/
+.DS_Store
+.edgeone/

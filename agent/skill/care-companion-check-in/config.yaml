@@ -1,0 +1,17 @@
+name: care-companion-check-in
+version: 0.2.4
+category: healthcare
+description: >
+  Runs the Timbre Care check-in call for one enrolled elder, at the cadence
+  the elder chose: plans the call from their current watch-fors and medication
+  list, places it, records what was heard, and routes anything of concern to the
+  people the elder authorised.
+trigger_keywords:
+  - check-in call
+  - daily check-in
+  - check in on
+  - care companion
+  - welfare call
+  - morning call
+mcp_servers:
+  - care-companion

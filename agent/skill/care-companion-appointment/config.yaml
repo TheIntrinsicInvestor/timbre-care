@@ -1,0 +1,17 @@
+name: care-companion-appointment
+version: 0.2.1
+category: healthcare
+description: >
+  Runs the Timbre Care appointment path for one enrolled elder: takes the
+  in-room consent, writes the consultation up in plain language as it happens,
+  reconciles the medication list without writing to it, then produces her
+  large-print summary for the app, and writes the recipients' digest and the
+  watch-fors the check-in call will ask about.
+trigger_keywords:
+  - appointment companion
+  - caption the consult
+  - doctor appointment
+  - clinic visit
+  - write up the appointment
+mcp_servers:
+  - care-companion

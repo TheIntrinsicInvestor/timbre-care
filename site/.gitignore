@@ -1,0 +1,57 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# verification screenshots
+.verify/
+
+.vercel
+
+# impeccable scratch: decision sketches, four of five for eliminated directions.
+# The chosen direction lives in docs/superpowers/specs and docs/comps.
+.impeccable/
+
+# Visual brainstorming companion scratch
+.superpowers/
+
+# Higgsfield originals and intermediate encodes. The shipped, hashed assets
+# live in public/art; these are 20 MB of source and are not needed to build.
+raw/

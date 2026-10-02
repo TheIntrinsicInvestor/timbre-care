@@ -1,0 +1,1004 @@
+{
+  "elders": {
+    "lim-mei-hua": {
+      "display_name": "Lim Mei Hua",
+      "spoken_language": "Hokkien",
+      "written_language": "Chinese (standard written)",
+      "language_tier": 2,
+      "marker_eligibility": {
+        "linguistic": false,
+        "acoustic": true,
+        "behavioural": true
+      },
+      "eligibility_reason": "Measured recognition confidence over the baseline period fell below the lexical gate. Acoustic and behavioural families are unaffected because they need diarisation, not word recognition.",
+      "enrolled_on": "2026-06-25",
+      "watch_fors": [
+        {
+          "id": "wf-whether-she-is-still",
+          "text": "Whether she is still leaving half her meals unfinished",
+          "source": "appointment 2026-08-07"
+        },
+        {
+          "id": "wf-whether-the-morning",
+          "text": "Whether the morning drowsiness has settled since the amitriptyline was reduced to 10 mg",
+          "source": "appointment 2026-08-07"
+        },
+        {
+          "id": "wf-whether-the-knee-pain",
+          "text": "Whether the knee pain is getting worse, especially on stairs",
+          "source": "appointment 2026-08-07"
+        },
+        {
+          "id": "wf-whether-she-feels-giddy",
+          "text": "Whether she feels giddy when she stands up",
+          "source": "appointment 2026-08-07"
+        }
+      ],
+      "med_list": [
+        {
+          "name": "metformin",
+          "started": "2024-03-11",
+          "sedating": false
+        },
+        {
+          "name": "atorvastatin",
+          "started": "2025-01-08",
+          "sedating": false
+        },
+        {
+          "name": "amitriptyline",
+          "started": "2026-08-01",
+          "sedating": true
+        },
+        {
+          "name": "amlodipine",
+          "started": "2026-08-05",
+          "sedating": false
+        }
+      ],
+      "recipients": [
+        {
+          "name": "Serene (daughter)",
+          "relationship": "family",
+          "scopes": [
+            "appointment_summary",
+            "content_flags",
+            "acute_notification",
+            "drift_digest"
+          ]
+        },
+        {
+          "name": "Marisa (live-in helper)",
+          "relationship": "employed",
+          "scopes": [
+            "appointment_summary",
+            "content_flags",
+            "acute_notification"
+          ]
+        },
+        {
+          "name": "Wei Jie (son, Perth)",
+          "relationship": "family",
+          "scopes": [
+            "appointment_summary",
+            "drift_digest"
+          ]
+        }
+      ],
+      "calls": [
+        {
+          "date": "2026-06-25",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 109.3,
+            "articulation_rate_sps": 4.27,
+            "pause_fraction": 0.327,
+            "answer_latency_s": 2.03
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-06-26",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 120.2,
+            "articulation_rate_sps": 4.44,
+            "pause_fraction": 0.266,
+            "answer_latency_s": 2.08
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-06-27",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 116.4,
+            "articulation_rate_sps": 4.11,
+            "pause_fraction": 0.213,
+            "answer_latency_s": 1.79
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-06-28",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 114.9,
+            "articulation_rate_sps": 4.2,
+            "pause_fraction": 0.341,
+            "answer_latency_s": 1.69
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-06-29",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 116.2,
+            "articulation_rate_sps": 4.41,
+            "pause_fraction": 0.266,
+            "answer_latency_s": 1.33
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-06-30",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 123.9,
+            "articulation_rate_sps": 4.28,
+            "pause_fraction": 0.314,
+            "answer_latency_s": 1.24
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-01",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 110.8,
+            "articulation_rate_sps": 4.19,
+            "pause_fraction": 0.238,
+            "answer_latency_s": 1.37
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-02",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 114.6,
+            "articulation_rate_sps": 4.42,
+            "pause_fraction": 0.23,
+            "answer_latency_s": 1.75
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-03",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 122.1,
+            "articulation_rate_sps": 4.17,
+            "pause_fraction": 0.318,
+            "answer_latency_s": 1.64
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-04",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 119.3,
+            "articulation_rate_sps": 4.55,
+            "pause_fraction": 0.31,
+            "answer_latency_s": 1.55
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-05",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 118.2,
+            "articulation_rate_sps": 4.4,
+            "pause_fraction": 0.283,
+            "answer_latency_s": 1.54
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-06",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 119.5,
+            "articulation_rate_sps": 4.65,
+            "pause_fraction": 0.268,
+            "answer_latency_s": 1.43
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-07",
+          "status": "no_answer",
+          "markers": null,
+          "note": "unanswered after two retries"
+        },
+        {
+          "date": "2026-07-08",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 117.8,
+            "articulation_rate_sps": 4.3,
+            "pause_fraction": 0.284,
+            "answer_latency_s": 1.61
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-09",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 120.5,
+            "articulation_rate_sps": 4.3,
+            "pause_fraction": 0.306,
+            "answer_latency_s": 1.98
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-10",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 117.7,
+            "articulation_rate_sps": 4.28,
+            "pause_fraction": 0.3,
+            "answer_latency_s": 1.43
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-11",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 113.5,
+            "articulation_rate_sps": 4.39,
+            "pause_fraction": 0.247,
+            "answer_latency_s": 1.01
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-12",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 121.9,
+            "articulation_rate_sps": 4.29,
+            "pause_fraction": 0.307,
+            "answer_latency_s": 1.49
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-13",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 108.6,
+            "articulation_rate_sps": 4.33,
+            "pause_fraction": 0.265,
+            "answer_latency_s": 1.57
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-14",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 119.7,
+            "articulation_rate_sps": 4.21,
+            "pause_fraction": 0.297,
+            "answer_latency_s": 1.1
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-15",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 116.6,
+            "articulation_rate_sps": 4.4,
+            "pause_fraction": 0.296,
+            "answer_latency_s": 1.84
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-16",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 115.2,
+            "articulation_rate_sps": 4.43,
+            "pause_fraction": 0.313,
+            "answer_latency_s": 1.61
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-17",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 123.6,
+            "articulation_rate_sps": 4.37,
+            "pause_fraction": 0.229,
+            "answer_latency_s": 1.75
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-18",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 116.3,
+            "articulation_rate_sps": 4.19,
+            "pause_fraction": 0.272,
+            "answer_latency_s": 1.74
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-19",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 115.5,
+            "articulation_rate_sps": 4.21,
+            "pause_fraction": 0.321,
+            "answer_latency_s": 1.71
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-20",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 117.3,
+            "articulation_rate_sps": 4.41,
+            "pause_fraction": 0.279,
+            "answer_latency_s": 1.48
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-21",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 113.1,
+            "articulation_rate_sps": 4.41,
+            "pause_fraction": 0.308,
+            "answer_latency_s": 1.55
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-22",
+          "status": "no_answer",
+          "markers": null,
+          "note": "unanswered after two retries"
+        },
+        {
+          "date": "2026-07-23",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 131.7,
+            "articulation_rate_sps": 3.67,
+            "pause_fraction": 0.253,
+            "answer_latency_s": 1.0
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-24",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 101.2,
+            "articulation_rate_sps": 3.94,
+            "pause_fraction": 0.382,
+            "answer_latency_s": 1.4
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-25",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 118.0,
+            "articulation_rate_sps": 4.0,
+            "pause_fraction": 0.18,
+            "answer_latency_s": 1.4
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-26",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 122.8,
+            "articulation_rate_sps": 3.83,
+            "pause_fraction": 0.136,
+            "answer_latency_s": 1.76
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-27",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 111.7,
+            "articulation_rate_sps": 4.45,
+            "pause_fraction": 0.23,
+            "answer_latency_s": 1.5
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-28",
+          "status": "no_answer",
+          "markers": null,
+          "note": "unanswered after two retries"
+        },
+        {
+          "date": "2026-07-29",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 134.0,
+            "articulation_rate_sps": 4.46,
+            "pause_fraction": 0.225,
+            "answer_latency_s": 2.4
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-30",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 116.7,
+            "articulation_rate_sps": 4.27,
+            "pause_fraction": 0.264,
+            "answer_latency_s": 0.38
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-07-31",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 123.4,
+            "articulation_rate_sps": 4.19,
+            "pause_fraction": 0.325,
+            "answer_latency_s": 1.53
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-08-01",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 103.4,
+            "articulation_rate_sps": 4.31,
+            "pause_fraction": 0.249,
+            "answer_latency_s": 0.97
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-08-02",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 111.4,
+            "articulation_rate_sps": 4.51,
+            "pause_fraction": 0.382,
+            "answer_latency_s": 0.98
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-08-03",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 107.7,
+            "articulation_rate_sps": 4.41,
+            "pause_fraction": 0.304,
+            "answer_latency_s": 1.29
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-08-04",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 127.5,
+            "articulation_rate_sps": 4.0,
+            "pause_fraction": 0.345,
+            "answer_latency_s": 1.4
+          },
+          "note": ""
+        },
+        {
+          "date": "2026-08-05",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 104.2,
+            "articulation_rate_sps": 4.05,
+            "pause_fraction": 0.36,
+            "answer_latency_s": 2.4
+          },
+          "note": "knee pain; ate half of lunch; reports feeling blur on new tablet"
+        },
+        {
+          "date": "2026-08-07",
+          "status": "completed",
+          "markers": {
+            "articulation_rate_sps": 4.05,
+            "pause_fraction": 0.36,
+            "answer_latency_s": 2.4,
+            "speech_rate_wpm": 104.2
+          },
+          "note": "knee pain on stairs; ate half of lunch; not hungry these few days; reports new tablet makes her a bit blur; sleep not so good"
+        },
+        {
+          "date": "2026-08-08",
+          "status": "completed",
+          "markers": {
+            "answer_latency_s": 1.75,
+            "articulation_rate_sps": 3.74,
+            "pause_fraction": 0.2,
+            "speech_rate_wpm": 132.2
+          },
+          "note": "knee pain; ate half of lunch; reports feeling blur on new tablet"
+        },
+        {
+          "date": "2026-08-09",
+          "status": "completed",
+          "markers": {
+            "speech_rate_wpm": 135.2,
+            "articulation_rate_sps": 4.19,
+            "pause_fraction": 0.184,
+            "answer_latency_s": 1.27
+          },
+          "note": "knee pain on stairs; ate half of lunch; reports feeling blur on new tablet; sleep not so good"
+        }
+      ],
+      "events": {
+        "content-appetite-2026-08-05": {
+          "kind": "content_flag",
+          "topic": "appetite",
+          "quote": "Lunch I eat half only",
+          "urgency": "immediate",
+          "raised_on": "2026-08-05",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-knee-pain-2026-08-07": {
+          "kind": "content_flag",
+          "topic": "knee pain",
+          "quote": "The knee again when I go down the stairs.",
+          "urgency": "routine",
+          "raised_on": "2026-08-07",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-appetite-2026-08-07": {
+          "kind": "content_flag",
+          "topic": "appetite",
+          "quote": "Lunch I eat half only, not so hungry these few days.",
+          "urgency": "routine",
+          "raised_on": "2026-08-07",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-sleep-2026-08-07": {
+          "kind": "content_flag",
+          "topic": "sleep",
+          "quote": "Sleep not so good",
+          "urgency": "routine",
+          "raised_on": "2026-08-07",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-medication-side-effect-2026-08-07": {
+          "kind": "content_flag",
+          "topic": "medication side-effect (drowsiness)",
+          "quote": "Tablets I took, the new one make me a bit blur.",
+          "urgency": "routine",
+          "raised_on": "2026-08-07",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-knee-pain-2026-08-08": {
+          "kind": "content_flag",
+          "topic": "knee pain",
+          "quote": "the knee again when I go down the stairs",
+          "urgency": "routine",
+          "raised_on": "2026-08-08",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-appetite-2026-08-08": {
+          "kind": "content_flag",
+          "topic": "appetite",
+          "quote": "Lunch I eat half only, not so hungry these few days",
+          "urgency": "routine",
+          "raised_on": "2026-08-08",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-medication-side-effect-2026-08-08": {
+          "kind": "content_flag",
+          "topic": "medication side-effect (drowsiness)",
+          "quote": "Tablets I took, the new one make me a bit blur",
+          "urgency": "routine",
+          "raised_on": "2026-08-08",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-sleep-2026-08-08": {
+          "kind": "content_flag",
+          "topic": "sleep",
+          "quote": "Sleep not so good",
+          "urgency": "routine",
+          "raised_on": "2026-08-08",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-knee-pain-2026-08-09": {
+          "kind": "content_flag",
+          "topic": "knee pain",
+          "quote": "the knee again when I go down the stairs",
+          "urgency": "routine",
+          "raised_on": "2026-08-09",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-appetite-2026-08-09": {
+          "kind": "content_flag",
+          "topic": "appetite",
+          "quote": "Lunch I eat half only, not so hungry these few days",
+          "urgency": "routine",
+          "raised_on": "2026-08-09",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-medication-side-effect-2026-08-09": {
+          "kind": "content_flag",
+          "topic": "medication side-effect (drowsiness)",
+          "quote": "the new one make me a bit blur",
+          "urgency": "routine",
+          "raised_on": "2026-08-09",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        },
+        "content-sleep-2026-08-09": {
+          "kind": "content_flag",
+          "topic": "sleep",
+          "quote": "Sleep not so good, the knee again when I go down the stairs",
+          "urgency": "routine",
+          "raised_on": "2026-08-09",
+          "notified": [
+            "Serene (daughter)",
+            "Marisa (live-in helper)"
+          ]
+        }
+      },
+      "last_confound_check": "2026-08-09",
+      "appointments": {
+        "capture-2026-08-05": {
+          "consult_id": "consult-2026-08-05",
+          "opened_on": "2026-08-05",
+          "cursor": 16,
+          "captions": [
+            {
+              "segment_id": "s03",
+              "caption": "\u5148\u770b\u60a8\u7684\u9a8c\u8840\u62a5\u544a\u3002\u60a8\u7684\u8840\u7cd6\u6307\u6807\uff08\u7cd6\u5316\u8840\u7ea2\u86cb\u767d\uff09\u662f8.2\uff0c\u6bd4\u4e0a\u6b21\u9ad8\u4e86\u3002",
+              "language": "Chinese (standard written)",
+              "at": 21.6
+            },
+            {
+              "segment_id": "s04",
+              "caption": "\u6240\u4ee5\u6211\u8981\u628a\u4e8c\u7532\u53cc\u80cd\uff08\u964d\u8840\u7cd6\u836f\uff09\u52a0\u91cf\u5230\u6bcf\u6b21850\u6beb\u514b\uff0c\u4e00\u5929\u5403\u4e24\u6b21\u3002",
+              "language": "Chinese (standard written)",
+              "at": 31.5
+            },
+            {
+              "segment_id": "s07",
+              "caption": "\u56e0\u4e3a\u60a8\u80be\u810f\u7684\u5173\u7cfb\uff0c\u6211\u4e0d\u7ed9\u60a8\u5f00\u90a3\u7c7b\u6d88\u708e\u6b62\u75db\u836f\uff0c\u6539\u6210\u8f6c\u4ecb\u60a8\u53bb\u505a\u7269\u7406\u6cbb\u7597\u3002",
+              "language": "Chinese (standard written)",
+              "at": 60.0
+            },
+            {
+              "segment_id": "s06",
+              "caption": "\u60a8\u7684\u819d\u76d6X\u5149\u7247\u663e\u793a\u662f\u9aa8\u5173\u8282\u708e\uff0c\u5728\u5173\u8282\u5185\u4fa7\uff0c\u4e5f\u5c31\u662f\u5173\u8282\u5185\u4fa7\u78e8\u635f\u4e86\u3002",
+              "language": "Chinese (standard written)",
+              "at": 49.2
+            },
+            {
+              "segment_id": "s10",
+              "caption": "\u60a8\u8fd8\u6709\u5728\u6309\u65f6\u5403\u6c28\u6c2f\u5730\u5e73\uff08\u964d\u8840\u538b\u836f\uff09\uff0c\u5bf9\u5417\uff1f",
+              "language": "Chinese (standard written)",
+              "at": 89.4
+            },
+            {
+              "segment_id": "s09",
+              "caption": "\u90a3\u662f\u963f\u7c73\u66ff\u6797\uff08\u5e2e\u52a9\u7761\u7720\u7684\u836f\uff09\u3002\u6211\u5f00\u59cb\u7ed9\u60a825\u6beb\u514b\uff0c\u73b0\u5728\u51cf\u523010\u6beb\u514b\uff0c\u770b\u770b\u65e9\u4e0a\u660f\u6c89\u7684\u60c5\u51b5\u4f1a\u4e0d\u4f1a\u597d\u8f6c\u3002",
+              "language": "Chinese (standard written)",
+              "at": 80.5
+            },
+            {
+              "segment_id": "s12",
+              "caption": "\u60a8\u7684\u4f53\u91cd\u6bd4\u4e03\u6708\u4efd\u8f7b\u4e862\u516c\u65a4\u3002\u60a8\u4e09\u9910\u90fd\u6709\u5403\u5b8c\u5417\uff1f",
+              "language": "Chinese (standard written)",
+              "at": 104.8
+            },
+            {
+              "segment_id": "s14",
+              "caption": "\u90a3\u6211\u5e0c\u671b\u6709\u4eba\u7559\u610f\u8fd9\u4ef6\u4e8b\u3002\u5982\u679c\u4e24\u4e2a\u661f\u671f\u540e\u60a8\u7684\u996d\u8fd8\u662f\u53ea\u5403\u4e00\u534a\uff0c\u6211\u4eec\u5c31\u8981\u8ba4\u771f\u68c0\u67e5\u4e86\u3002",
+              "language": "Chinese (standard written)",
+              "at": 124.6
+            },
+            {
+              "segment_id": "s15",
+              "caption": "\u516d\u4e2a\u661f\u671f\u540e\u56de\u6765\u590d\u8bca\u3002\u5982\u679c\u819d\u76d6\u66f4\u75db\uff0c\u6216\u8005\u7ad9\u8d77\u6765\u65f6\u5934\u6655\uff0c\u5c31\u65e9\u70b9\u6765\u770b\u533b\u751f\u3002",
+              "language": "Chinese (standard written)",
+              "at": 136.2
+            }
+          ],
+          "outputs": {
+            "elder_summary": {
+              "whats_happening": "\u533b\u751f\u8bf4\uff1a\u60a8\u7684\u8840\u7cd6\u6bd4\u4e0a\u6b21\u9ad8\u4e86\uff08\u6307\u68078.2\uff09\u3002\u819d\u76d6\u7167\u4e86X\u5149\uff0c\u662f\u5173\u8282\u5185\u4fa7\u78e8\u635f\uff0c\u53eb\u9aa8\u5173\u8282\u708e\u3002\u65e9\u4e0a\u89c9\u5f97\u660f\u6c89\uff0c\u662f\u5e2e\u52a9\u7761\u7720\u7684\u90a3\u4e2a\u836f\u5f15\u8d77\u7684\u3002",
+              "whats_changed": "\u964d\u8840\u7cd6\u836f\uff08\u4e8c\u7532\u53cc\u80cd\uff09\u52a0\u91cf\uff1a\u6bcf\u6b21850\u6beb\u514b\uff0c\u4e00\u5929\u4e24\u6b21\u3002\u52a9\u7720\u836f\uff08\u963f\u7c73\u66ff\u6797\uff09\u51cf\u91cf\uff1a\u6bcf\u665a10\u6beb\u514b\u3002\u964d\u8840\u538b\u836f\u7167\u5e38\u5403\u3002\u819d\u76d6\u4e0d\u5f00\u6d88\u708e\u6b62\u75db\u836f\uff08\u56e0\u4e3a\u80be\u810f\uff09\uff0c\u6539\u6210\u53bb\u505a\u7269\u7406\u6cbb\u7597\u3002",
+              "what_to_do": "\u6309\u65f6\u5403\u65b0\u4efd\u91cf\u7684\u836f\u3002\u5c3d\u91cf\u628a\u4e09\u9910\u5403\u5b8c\u3002\u7559\u610f\u819d\u76d6\u548c\u7ad9\u8d77\u6765\u6709\u6ca1\u6709\u5934\u6655\u3002",
+              "when_to_return": "\u516d\u4e2a\u661f\u671f\u540e\u56de\u6765\u590d\u8bca\u3002\u5982\u679c\u819d\u76d6\u66f4\u75db\uff0c\u6216\u7ad9\u8d77\u6765\u5934\u6655\uff0c\u5c31\u65e9\u70b9\u6765\u770b\u3002\u5982\u679c\u4e24\u4e2a\u661f\u671f\u540e\u996d\u8fd8\u662f\u53ea\u5403\u4e00\u534a\uff0c\u8981\u544a\u8bc9\u533b\u751f\u3002"
+            },
+            "watch_fors": [
+              "whether she is finishing her meals",
+              "whether the morning drowsiness is settling on the lower amitriptyline dose",
+              "whether the knee pain is getting worse",
+              "whether she feels giddy when standing up"
+            ],
+            "recipient_digest": {
+              "plain_diagnosis": "Blood sugar is higher than last visit (the long-term blood sugar reading is 8.2, up from before). Knee X-ray shows wear and tear on the inner side of the joint. The morning drowsiness she mentioned is from the amitriptyline (sleep/mood tablet). Weight is down 2 kilos since July, and she says she sometimes finishes only half her meals.",
+              "medication_changes": "Metformin (diabetes) increased to 850 mg twice daily. Amitriptyline reduced from 25 mg to 10 mg at night to see if the morning drowsiness settles. Both confirmed and recorded by Wei Jie (son). Amlodipine (blood pressure) continues unchanged. No anti-inflammatory painkillers because of her kidneys \u2014 physiotherapy referral instead.",
+              "next_appointment": "6 weeks. Come earlier if the knee gets worse or she feels giddy when standing up. If she is still leaving half her meals in two weeks, the doctor wants it looked at properly.",
+              "what_to_watch_for": [
+                "whether she is finishing her meals",
+                "whether the morning drowsiness is settling on the lower amitriptyline dose",
+                "whether the knee pain is getting worse",
+                "whether she feels giddy when standing up"
+              ],
+              "suggested_questions": [
+                "Has the physiotherapy referral come through, and who will take her?",
+                "Has the 10 mg amitriptyline dose started, and is she less drowsy in the mornings?",
+                "Who is noting how much of each meal she finishes over the next two weeks?",
+                "Given painkillers were avoided because of her kidneys, when is her next kidney function blood test?"
+              ]
+            },
+            "digest_routed_to": [
+              "Serene (daughter)",
+              "Marisa (live-in helper)",
+              "Wei Jie (son, Perth)"
+            ]
+          }
+        },
+        "capture-2026-08-07": {
+          "consult_id": "consult-2026-08-05",
+          "opened_on": "2026-08-07",
+          "cursor": 16,
+          "captions": [
+            {
+              "segment_id": "s03",
+              "caption": "\u533b\u751f\u8bf4\uff1a\u60a8\u7684\u957f\u671f\u8840\u7cd6\u8bfb\u6570\u5347\u5230\u4e86 8.2\uff0c\u6bd4\u4e0a\u6b21\u9ad8\u3002",
+              "language": "Chinese (standard written)",
+              "at": 21.6
+            },
+            {
+              "segment_id": "s04",
+              "caption": "\u533b\u751f\u628a\u964d\u7cd6\u836f\u4e8c\u7532\u53cc\u80cd\u52a0\u91cf\u5230\u6bcf\u6b21 850 \u6beb\u514b\uff0c\u4e00\u5929\u4e24\u6b21\u3002",
+              "language": "Chinese (standard written)",
+              "at": 31.5
+            },
+            {
+              "segment_id": "s01",
+              "caption": "\u533b\u751f\u8bf7\u60a8\u8fdb\u6765\u5750\uff0c\u95ee\u60a8\u4e03\u6708\u4ee5\u6765\u8eab\u4f53\u600e\u4e48\u6837\u3002",
+              "language": "Chinese (standard written)",
+              "at": 5.8
+            },
+            {
+              "segment_id": "s06",
+              "caption": "\u819d\u76d6 X \u5149\u7247\u663e\u793a\uff1a\u5173\u8282\u5185\u4fa7\u6709\u78e8\u635f\uff0c\u662f\u957f\u5e74\u7d2f\u6708\u7528\u51fa\u6765\u7684\u78e8\u635f\u3002",
+              "language": "Chinese (standard written)",
+              "at": 49.2
+            },
+            {
+              "segment_id": "s07",
+              "caption": "\u8003\u8651\u5230\u60a8\u7684\u80be\u810f\uff0c\u533b\u751f\u4e0d\u5f00\u90a3\u7c7b\u6d88\u708e\u6b62\u75db\u836f\uff0c\u6539\u4e3a\u8f6c\u4ecb\u60a8\u53bb\u505a\u7269\u7406\u6cbb\u7597\u3002",
+              "language": "Chinese (standard written)",
+              "at": 60.0
+            },
+            {
+              "segment_id": "s09",
+              "caption": "\u90a3\u79cd\u52a9\u7720\u7684\u836f\uff08\u963f\u7c73\u66ff\u6797\uff09\u4ece 25 \u6beb\u514b\u51cf\u5230 10 \u6beb\u514b\uff0c\u770b\u65e9\u4e0a\u7684\u660f\u6c89\u4f1a\u4e0d\u4f1a\u6d88\u9000\u3002",
+              "language": "Chinese (standard written)",
+              "at": 80.5
+            },
+            {
+              "segment_id": "s10",
+              "caption": "\u533b\u751f\u786e\u8ba4\uff1a\u60a8\u8fd8\u5728\u5403\u964d\u8840\u538b\u836f\u6c28\u6c2f\u5730\u5e73\uff0c\u5bf9\u5417\uff1f",
+              "language": "Chinese (standard written)",
+              "at": 89.4
+            },
+            {
+              "segment_id": "s12",
+              "caption": "\u60a8\u7684\u4f53\u91cd\u6bd4\u4e03\u6708\u8f7b\u4e86 2 \u516c\u65a4\u3002\u533b\u751f\u95ee\u60a8\u6bcf\u987f\u996d\u6709\u6ca1\u6709\u5403\u5b8c\u3002",
+              "language": "Chinese (standard written)",
+              "at": 104.8
+            },
+            {
+              "segment_id": "s14",
+              "caption": "\u533b\u751f\u5e0c\u671b\u6709\u4eba\u7559\u610f\u60a8\u7684\u98df\u91cf\u3002\u4e24\u5468\u540e\u5982\u679c\u6bcf\u987f\u8fd8\u662f\u53ea\u5403\u4e00\u534a\uff0c\u5c31\u8981\u8ba4\u771f\u67e5\u4e00\u67e5\u3002",
+              "language": "Chinese (standard written)",
+              "at": 124.6
+            },
+            {
+              "segment_id": "s15",
+              "caption": "\u516d\u5468\u540e\u590d\u8bca\u3002\u5982\u679c\u819d\u76d6\u66f4\u4e25\u91cd\uff0c\u6216\u7ad9\u8d77\u6765\u65f6\u5934\u6655\uff0c\u5c31\u63d0\u524d\u6765\u770b\u3002",
+              "language": "Chinese (standard written)",
+              "at": 136.2
+            }
+          ],
+          "outputs": {
+            "elder_summary": {
+              "whats_happening": "\u60a8\u7684\u957f\u671f\u8840\u7cd6\u8bfb\u6570\u5347\u5230\u4e86 8.2\uff0c\u6bd4\u4e0a\u6b21\u9ad8\u3002\u819d\u76d6 X \u5149\u7247\u663e\u793a\u5173\u8282\u5185\u4fa7\u6709\u957f\u5e74\u7d2f\u6708\u7684\u78e8\u635f\u3002\u60a8\u7684\u4f53\u91cd\u6bd4\u4e03\u6708\u8f7b\u4e86 2 \u516c\u65a4\uff0c\u533b\u751f\u8bf4\u6bcf\u987f\u6709\u65f6\u53ea\u5403\u4e00\u534a\uff0c\u9700\u8981\u6709\u4eba\u7559\u610f\u3002",
+              "whats_changed": "\u964d\u7cd6\u836f\u4e8c\u7532\u53cc\u80cd\u52a0\u91cf\u5230\u6bcf\u6b21 850 \u6beb\u514b\uff0c\u4e00\u5929\u4e24\u6b21\u3002\u52a9\u7720\u836f\u963f\u7c73\u66ff\u6797\u4ece 25 \u6beb\u514b\u51cf\u5230 10 \u6beb\u514b\uff0c\u665a\u4e0a\u5403\u3002\u964d\u8840\u538b\u836f\u6c28\u6c2f\u5730\u5e73\u7167\u5e38\u5403\u3002\u819d\u76d6\u4e0d\u5f00\u6d88\u708e\u6b62\u75db\u836f\uff0c\u6539\u4e3a\u8f6c\u4ecb\u60a8\u53bb\u505a\u7269\u7406\u6cbb\u7597\u3002",
+              "what_to_do": "\u6309\u65b0\u5242\u91cf\u6309\u65f6\u5403\u836f\u3002\u53bb\u7269\u7406\u6cbb\u7597\u3002\u6bcf\u987f\u5c3d\u91cf\u628a\u996d\u5403\u5b8c\u3002\u5982\u679c\u7ad9\u8d77\u6765\u65f6\u5934\u6655\uff0c\u6216\u8005\u819d\u76d6\u66f4\u75db\uff0c\u63d0\u524d\u6765\u770b\u533b\u751f\u3002",
+              "when_to_return": "\u516d\u5468\u540e\u590d\u8bca\u3002\u5982\u679c\u4e24\u5468\u540e\u6bcf\u987f\u8fd8\u662f\u53ea\u5403\u4e00\u534a\uff0c\u8981\u544a\u8bc9\u533b\u751f\u3002"
+            },
+            "watch_fors": [
+              "Whether she is still leaving half her meals unfinished",
+              "Whether the morning drowsiness has settled since the amitriptyline was reduced to 10 mg",
+              "Whether the knee pain is getting worse, especially on stairs",
+              "Whether she feels giddy when she stands up"
+            ],
+            "recipient_digest": {
+              "plain_diagnosis": "Her long-term blood sugar reading is up to 8.2, higher than last visit. Knee X-ray shows wear-and-tear on the inner side of the joint. Weight down 2 kg since July; she says she is leaving about half her meals.",
+              "medication_changes": "Metformin increased to 850 mg twice daily. Amitriptyline reduced from 25 mg to 10 mg at night because of morning drowsiness. Amlodipine for blood pressure confirmed as ongoing, dose unchanged. No anti-inflammatory painkiller for the knee because of her kidneys; physiotherapy referral instead. One regular medicine on her list was not discussed today; it stays on the list unchanged. NOTE: the family member in the room confirmed hearing both dose changes, but they are not yet written to the medication list because the confirmer's name has not been recorded.",
+              "next_appointment": "6 weeks. Come earlier if the knee gets worse or she feels giddy when standing up.",
+              "what_to_watch_for": [
+                "Whether she is still leaving half her meals unfinished two weeks from now",
+                "Whether the morning drowsiness settles on the lower amitriptyline dose",
+                "Whether the knee pain gets worse, especially on stairs",
+                "Whether she feels giddy when she stands up"
+              ],
+              "suggested_questions": [
+                "One regular medicine was not discussed today \u2014 is it still needed?",
+                "When is the physiotherapy appointment, and who will take her?",
+                "If she is still leaving half her meals in two weeks, what should we do?"
+              ]
+            },
+            "digest_routed_to": [
+              "Serene (daughter)",
+              "Marisa (live-in helper)",
+              "Wei Jie (son, Perth)"
+            ]
+          },
+          "share": {
+            "token": "7ZYBJNrbvvt-CYZA",
+            "created_on": "2026-08-07"
+          },
+          "deliveries": [
+            {
+              "on": "2026-08-07",
+              "channel": "whatsapp",
+              "to": "Lim Mei Hua",
+              "path": "/e/7ZYBJNrbvvt-CYZA/",
+              "transport": "simulated"
+            }
+          ]
+        }
+      },
+      "consent_log": [
+        {
+          "on": "2026-08-05",
+          "event": "appointment_capture_opened",
+          "tapped_by": "Lim Mei Hua",
+          "announcement_played": true,
+          "capture_id": "capture-2026-08-05"
+        },
+        {
+          "on": "2026-08-05",
+          "event": "appointment_capture_opened",
+          "tapped_by": "Lim Mei Hua",
+          "announcement_played": true,
+          "capture_id": "capture-2026-08-05"
+        },
+        {
+          "on": "2026-08-07",
+          "event": "appointment_capture_opened",
+          "tapped_by": "lim-mei-hua",
+          "announcement_played": true,
+          "capture_id": "capture-2026-08-07"
+        },
+        {
+          "on": "2026-08-07",
+          "event": "appointment_capture_opened",
+          "tapped_by": "Lim Mei Hua (the elder herself)",
+          "announcement_played": true,
+          "capture_id": "capture-2026-08-07"
+        },
+        {
+          "on": "2026-08-07",
+          "event": "appointment_capture_opened",
+          "tapped_by": "Lim Mei Hua",
+          "announcement_played": true,
+          "capture_id": "capture-2026-08-07"
+        }
+      ],
+      "med_changes": [
+        {
+          "on": "2026-08-05",
+          "name": "metformin",
+          "change": "increase",
+          "dose": "850 mg twice daily",
+          "sedating": false,
+          "confirmed_by": "Wei Jie (son)"
+        },
+        {
+          "on": "2026-08-05",
+          "name": "amitriptyline",
+          "change": "reduce",
+          "dose": "10 mg at night",
+          "sedating": true,
+          "confirmed_by": "Wei Jie (son)"
+        },
+        {
+          "on": "2026-08-07",
+          "name": "metformin",
+          "change": "increase",
+          "dose": "850 mg twice daily",
+          "sedating": false,
+          "confirmed_by": "Tan Yi Ling"
+        },
+        {
+          "on": "2026-08-07",
+          "name": "amitriptyline",
+          "change": "reduce",
+          "dose": "10 mg at night",
+          "sedating": true,
+          "confirmed_by": "Tan Yi Ling"
+        }
+      ],
+      "check_in_cadence": "daily"
+    }
+  }
+}
