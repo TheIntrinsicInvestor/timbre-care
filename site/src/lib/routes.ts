@@ -12,4 +12,4 @@ export const ROUTES: Route[] = [
 ];
 
 /** The generated caregiver console. The only live surface this site links to. */
-export const LIVE_CONSOLE = "https://care-companion-sg.edgeone.dev";
+export const LIVE_CONSOLE = "https://timbre-care-console.vercel.app";
