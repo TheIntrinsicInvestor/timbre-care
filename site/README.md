@@ -1,6 +1,6 @@
 # Timbre Care: site
 
-The public site for Timbre Care, live at **https://timbre-care.edgeone.dev**. Next.js, exported as
+The public site for Timbre Care, live at **https://timbre-care.vercel.app**. Next.js, exported as
 static files and served from Tencent EdgeOne.
 
 | Route | What it shows |
