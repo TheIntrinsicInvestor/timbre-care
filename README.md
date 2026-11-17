@@ -4,7 +4,7 @@ An AI care agent for elderly people living alone. Built in August 2026 for the T
 "AI CAN DO IT | Age Well Social Good Challenge" in Singapore, AI Agent/Skills track, by team
 Karpathians: Brian Liew and Joseph Chew ([@joczx](https://github.com/joczx)).
 
-**Live: https://timbre-care.edgeone.dev**
+**Live: https://timbre-care.vercel.app**
 
 ## What it does
 
